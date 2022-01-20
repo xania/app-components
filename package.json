@@ -4,7 +4,7 @@
     "scripts": {
         "start": "vite",
         "dev": "vite",
-        "build": "npx rimraf dist && webpack",
+        "build": "webpack",
         "preview": "vite preview"
     },
     "devDependencies": {
