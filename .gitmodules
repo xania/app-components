@@ -1,0 +1,3 @@
+[submodule "libs/view"]
+	path = libs/view
+	url = https://github.com/xania/view.git

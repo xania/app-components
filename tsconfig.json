@@ -15,8 +15,7 @@
         "noImplicitReturns": true,
         "jsx": "react",
         "jsxFactory": "jsx",
-
     },
-    "include": ["./src", "./node_modules/@xania/view/types"],
-    // "exclude": ["./node_modules"]
+    "include": ["./src", "./libs/view/types"],
+    "exclude": ["./node_modules"]
 }
