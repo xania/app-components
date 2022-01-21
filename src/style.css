@@ -3,6 +3,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: black;
+}
+
+html,
+body,
+section {
+  padding: 0;
+  margin: 0;
+}
+
+header.top-bar {
+  line-height: 45px;
+  background-color: rgb(53, 52, 114);
+  color: white;
+  font-weight: bold;
+}
+
+.jumbotron {
+  padding: 20px;
 }

@@ -1,15 +1,18 @@
 import "./style.css";
 import { jsx, render } from "@xania/view";
-import CreatePortlet from "./portlets/create-portlets";
+import CreatePortlet from "./portlets/create-portlet";
 
-const app = document.querySelector<HTMLDivElement>("#app")!;
-render(app, <HelloComponent />);
+render(<App />, "#app", { name: "Ibrahim" });
 
-function HelloComponent() {
+function App() {
   return (
-    <div>
-      Hello world!
-      <CreatePortlet />
-    </div>
+    <section>
+      <header class="top-bar">App Workspace</header>
+      <section class="jumbotron">
+        Select components for the your App with no code, we take care for
+        everything else.
+      </section>
+      <CreatePortlet title="Hello Portlet" />
+    </section>
   );
 }

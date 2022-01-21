@@ -1,0 +1,15 @@
+.drop-zone {
+  border: 2px solid black;
+  padding: 20px;
+  margin: 20px;
+
+  &--drag-enter {
+    background-color: white;
+    border-style: dashed;
+    border-color: red;
+    * {
+      pointer-events: none;
+      display: hidden;
+    }
+  }
+}
