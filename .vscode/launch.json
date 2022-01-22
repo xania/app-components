@@ -1,17 +1,16 @@
 {
-    "configurations": [
-      {
-        "type": "pwa-chrome",
-        "name": "web",
-        "request": "launch",
-        "url": "http://localhost:3000"
-      },
-      {
-        "name": "Attach to .NET Functions",
-        "type": "coreclr",
-        "request": "attach",
-        "processId": "${command:azureFunctions.pickProcess}"
-      }
-    ],
+  "configurations": [{
+      "type": "pwa-chrome",
+      "name": "web",
+      "request": "launch",
+      "url": "https://localhost:3000"
+    },
+    {
+      "name": "Attach to .NET Functions",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:azureFunctions.pickProcess}"
+    }
+  ],
   "version": "0.2.0"
 }
