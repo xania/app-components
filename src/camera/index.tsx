@@ -10,8 +10,8 @@ export function CameraComponent() {
   const canvasElt = createHtmlElement("canvas");
 
   const videoElt = createHtmlElement("video");
-  videoElt.setAttribute("autoplay", "true");
-  videoElt.setAttribute("playsinline", "true");
+  videoElt.autoplay = true;
+  videoElt.playsInline = true;
 
   const imgElt = createHtmlElement("img");
   imgElt.src = "//:0";
