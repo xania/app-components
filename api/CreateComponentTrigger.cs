@@ -24,7 +24,7 @@ namespace Xania.AppComponent.Create
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = config["StorageAccount:ConnectionString"];
+            var connectionString = config["StorageConnectionString"];
 
             foreach (var file in req.Form.Files)
             {
