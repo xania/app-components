@@ -13,10 +13,6 @@ function App() {
         everything else.
       </section>
       <CreatePortlet title="Hello Portlet" />
-
-      <form>
-        <input type="file" />
-      </form>
     </section>
   );
 }
