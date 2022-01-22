@@ -10,6 +10,7 @@ export function CameraComponent() {
   const canvasElt = createHtmlElement("canvas");
 
   const videoElt = createHtmlElement("video");
+  videoElt.id = "camera--view";
   videoElt.autoplay = true;
   videoElt.playsInline = true;
 
@@ -25,7 +26,7 @@ export function CameraComponent() {
       {canvasElt}
       {imgElt}
       <button click={capture}>capture</button>
-      {startCamera}
+      <button click={startCamera}>start</button>
     </div>
   );
 
@@ -41,13 +42,10 @@ export function CameraComponent() {
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then((stream) => {
-        const track = stream.getTracks()[0];
-        console.log(track);
         videoElt.srcObject = stream;
-        stream;
       })
       .catch((err) => {
-        console.error("Oops. Something is broken.", err);
+        console.log("Oops. Something is broken.", err);
       });
   }
 }

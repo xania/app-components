@@ -3,7 +3,7 @@ import { jsx, render } from "@xania/view";
 import CreatePortlet from "./portlets/create-portlet";
 import { CameraComponent } from "./camera";
 
-render(<App />, "#app", { name: "Ibrahim" });
+render(<CameraComponent />, "#app", { name: "Ibrahim" });
 
 function App() {
   return (
@@ -14,7 +14,6 @@ function App() {
         everything else.
       </section>
       <CreatePortlet title="Hello Portlet" />
-      <CameraComponent />
     </section>
   );
 }
