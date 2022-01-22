@@ -1,9 +1,8 @@
 import "./style.css";
 import { jsx, render } from "@xania/view";
 import CreatePortlet from "./portlets/create-portlet";
-import { CameraComponent } from "./camera";
 
-render(<CameraComponent />, "#app", { name: "Ibrahim" });
+render(<App />, "#app", { name: "Ibrahim" });
 
 function App() {
   return (
