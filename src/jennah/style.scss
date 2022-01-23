@@ -33,17 +33,24 @@ video {
   overflow: hidden;
   display: flex;
   justify-content: center;
+  background-color: black;
 }
 
-button {
+.button-container {
   position: absolute;
-  z-index: 100;
-  background-color: rgba(1, 1, 1, 0);
-  border: 2px solid rgba(255, 255, 255, 0.6);
-  border-radius: 10px;
-  padding: 6px 10px;
-  color: rgba(255, 255, 255, 0.8);
   bottom: 20px;
+  width: 100%;
+  left: 0;
+  z-index: 100;
+  box-sizing: border-box;
+
+  button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    padding: 6px 10px;
+    color: rgba(255, 255, 255, 0.8);
+  }
 }
 
 .taken {

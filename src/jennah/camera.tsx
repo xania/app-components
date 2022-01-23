@@ -19,7 +19,9 @@ export function CameraComponent() {
     <div>
       {videoElt}
       {canvasElt}
-      <button click={capture}>capture</button>
+      <div class="button-container">
+        <button click={capture}>capture</button>
+      </div>
       {startCamera}
     </div>
   );
