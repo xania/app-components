@@ -29,18 +29,18 @@ export function CameraComponent() {
   function capture() {
     canvasElt.classList.remove("taken");
     canvasElt.style.display = "block";
-    canvasElt.width = videoElt.videoWidth / 1.414;
-    canvasElt.height = videoElt.videoHeight / 1.414;
+    canvasElt.width = videoElt.videoWidth;
+    canvasElt.height = videoElt.videoHeight;
     canvasElt
       .getContext("2d")
       .drawImage(videoElt, 0, 0, canvasElt.width, canvasElt.height);
     canvasElt.toBlob((blob) => {
       canvasElt.classList.add("taken");
-      uploadFiles([
-        new File([blob], "capture/" + new Date().toISOString() + ".png"),
-      ]).then(() => {
-        // canvasElt.style.display = "none";
-      });
+      uploadFiles([new File([blob], new Date().toISOString() + ".png")]).then(
+        () => {
+          // canvasElt.style.display = "none";
+        }
+      );
     });
 
     //    imgElt.src = canvasElt.toDataURL("image/webp");
