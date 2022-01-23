@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   server: {
-    https: true,
+    http: true,
     proxy: {
       "/api": {
         target: "http://localhost:7071",
