@@ -29,9 +29,11 @@ export function CameraComponent() {
   function capture() {
     canvasElt.classList.remove("taken");
     canvasElt.style.display = "block";
-    canvasElt.width = videoElt.videoWidth;
-    canvasElt.height = videoElt.videoHeight;
-    canvasElt.getContext("2d").drawImage(videoElt, 0, 0);
+    canvasElt.width = videoElt.videoWidth / 2;
+    canvasElt.height = videoElt.videoHeight / 2;
+    canvasElt
+      .getContext("2d")
+      .drawImage(videoElt, 0, 0, canvasElt.width, canvasElt.height);
     canvasElt.toBlob((blob) => {
       canvasElt.classList.add("taken");
       uploadFiles([
