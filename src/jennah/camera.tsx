@@ -1,10 +1,11 @@
 import { jsx } from "@xania/view";
 import { createHtmlElement } from "@xania/view/lib/util/create-dom";
+import { uploadFiles } from "../storage/upload-files";
 
 import "./style.scss";
 
 // Set constraints for the video stream
-const constraints = { video: { facingMode: "user" }, audio: false };
+const constraints = { video: { facingMode: "environment" }, audio: false };
 
 export function CameraComponent() {
   const canvasElt = createHtmlElement("canvas");
@@ -14,28 +15,32 @@ export function CameraComponent() {
   videoElt.autoplay = true;
   videoElt.playsInline = true;
 
-  const imgElt = createHtmlElement("img");
-  imgElt.src = "//:0";
-  imgElt.alt = "";
-
-  //  <img src="//:0" alt="" id="camera--output">
-
   return (
     <div>
       {videoElt}
       {canvasElt}
-      {imgElt}
       <button click={capture}>capture</button>
-      <button click={startCamera}>start</button>
+      {startCamera}
     </div>
   );
 
   function capture() {
+    canvasElt.classList.remove("taken");
+    canvasElt.style.display = "block";
     canvasElt.width = videoElt.videoWidth;
     canvasElt.height = videoElt.videoHeight;
     canvasElt.getContext("2d").drawImage(videoElt, 0, 0);
-    imgElt.src = canvasElt.toDataURL("image/webp");
-    imgElt.classList.add("taken");
+    canvasElt.toBlob((blob) => {
+      canvasElt.classList.add("taken");
+      uploadFiles([
+        new File([blob], "capture/" + new Date().toISOString() + ".png"),
+      ]).then(() => {
+        // canvasElt.style.display = "none";
+      });
+    });
+
+    //    imgElt.src = canvasElt.toDataURL("image/webp");
+    //    imgElt.classList.add("taken");
   }
 
   function startCamera() {

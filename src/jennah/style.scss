@@ -1,0 +1,62 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+canvas {
+  border: 1px solid green;
+  z-index: 102;
+  background-color: honeydew;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+video {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  position: absolute;
+  z-index: 100;
+  background-color: rgba(1, 1, 1, 0);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  padding: 6px 10px;
+  color: rgba(255, 255, 255, 0.8);
+  bottom: 20px;
+}
+
+.taken {
+  animation: zoom-in-zoom-out 0.2s ease;
+  transform: scale(0, 0);
+}
+
+@keyframes zoom-in-zoom-out {
+  0% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(0, 0);
+    opacity: 0.1;
+  }
+}
