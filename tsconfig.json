@@ -17,6 +17,6 @@
     "jsxFactory": "jsx.createElement",
     "jsxFragmentFactory": "jsx.createFragment"
   },
-  "include": ["./src", "./libs/view/types"],
+  "include": ["./src", "./libs/**/*.d.ts"],
   "exclude": ["./node_modules"]
 }

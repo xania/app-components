@@ -1,9 +1,20 @@
 import "./style.css";
 import { jsx, render } from "@xania/view";
 // import CreatePortlet from "./portlets/create-portlet";
-import { CameraComponent } from "./jennah/camera";
+// import { CameraComponent } from "./jennah/camera";
+import { BrowserOutlet } from "@xania/router";
+import { route } from "@xania/router";
 
-render(<CameraComponent />, "#app", { name: "Ibrahim" });
+const outlet = render(
+  <BrowserOutlet routes={[route("test", <Test />)]} />,
+  "#app"
+);
+
+function Test() {
+  return <div>test</div>;
+}
+
+// render(<CameraComponent />, "#app", { name: "Ibrahim" });
 
 // function App() {
 //   return (
