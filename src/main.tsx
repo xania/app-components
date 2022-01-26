@@ -1,12 +1,14 @@
 import "./style.css";
 import { jsx, render } from "@xania/view";
 // import CreatePortlet from "./portlets/create-portlet";
-// import { CameraComponent } from "./jennah/camera";
+import { CameraComponent } from "./jennah/camera";
 import { BrowserOutlet } from "@xania/router";
 import { route } from "@xania/router";
 
 const outlet = render(
-  <BrowserOutlet routes={[route("test", <Test />)]} />,
+  <BrowserOutlet
+    routes={[route("test", <Test />), route("camera", <CameraComponent />)]}
+  />,
   "#app"
 );
 
