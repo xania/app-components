@@ -23,6 +23,8 @@
     "webpack": "^5.64.0"
   },
   "dependencies": {
+    "@azure/identity": "^2.0.1",
+    "@azure/storage-blob": "^12.8.0",
     "@xania/router": "file:libs/router",
     "@xania/view": "file:libs/view",
     "rxjs": "7.5.2"

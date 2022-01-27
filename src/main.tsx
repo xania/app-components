@@ -4,6 +4,7 @@ import { jsx, render } from "@xania/view";
 import { CameraComponent } from "./jennah/camera";
 import { BrowserOutlet } from "@xania/router";
 import { route } from "@xania/router";
+import { ListDirectories } from "./storage";
 
 const outlet = render(
   <BrowserOutlet
@@ -13,7 +14,7 @@ const outlet = render(
 );
 
 function Test() {
-  return <div>test</div>;
+  return <ListDirectories></ListDirectories>;
 }
 
 // render(<CameraComponent />, "#app", { name: "Ibrahim" });
