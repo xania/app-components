@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api", "api.csproj", "{4242E8C4-5A81-4C45-B5F6-34795ABA2DD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xania.AppWorkspace", "Xania.AppWorkspace.csproj", "{4242E8C4-5A81-4C45-B5F6-34795ABA2DD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

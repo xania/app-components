@@ -15,7 +15,8 @@
     "noImplicitReturns": true,
     "jsx": "react",
     "jsxFactory": "jsx.createElement",
-    "jsxFragmentFactory": "jsx.createFragment"
+    "jsxFragmentFactory": "jsx.createFragment",
+    "baseUrl": "./"
   },
   "include": ["./src", "./libs/**/*.d.ts"],
   "exclude": ["./node_modules"]
