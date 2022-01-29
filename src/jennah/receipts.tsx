@@ -31,9 +31,9 @@ export function Receipts() {
   }
 
   async function approveBlob() {
-    const blobToDelete = blobName.current;
+    const blobToApprove = blobName.current;
     await moveNext();
-    await fetch("/api/blob/" + blobToDelete + "/approve", {
+    await fetch("/api/blob/" + blobToApprove + "/approve", {
       method: "PUT",
     });
   }
@@ -47,7 +47,7 @@ export function Receipts() {
       return moveNext();
     } else {
       blobName.set(null);
-      imageUrl.set("");
+      imageUrl.set(null);
     }
   }
 }
