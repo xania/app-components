@@ -16,7 +16,8 @@ export function Receipts() {
       <img class="receipts-carousel__img" src={imageUrl}></img>
       <div class="receipts-carousel__toolbar">
         <button click={deleteBlob}>delete</button>
-        <button click={approveBlob}>approve</button>
+        <button click={(_) => moveBlob("approved")}>approve</button>
+        <button click={(_) => moveBlob("paused")}>pause</button>
         <button click={moveNext}>next</button>
       </div>
     </div>
@@ -30,10 +31,10 @@ export function Receipts() {
     });
   }
 
-  async function approveBlob() {
+  async function moveBlob(target: string) {
     const blobToApprove = blobName.current;
     await moveNext();
-    await fetch("/api/blob/" + blobToApprove + "/approve", {
+    await fetch("/api/blob/" + blobToApprove + "/" + target, {
       method: "PUT",
     });
   }

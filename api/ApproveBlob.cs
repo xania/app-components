@@ -17,8 +17,9 @@ namespace Xania.AppWorkspace
     {
         [FunctionName("ApproveBlob")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "PUT", Route = "blob/{blobName}/approve")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "PUT", Route = "blob/{blobName}/{targetName}")] HttpRequest req,
             string blobName,
+            string targetName,
             ExecutionContext context,
             ILogger log)
         {
@@ -28,7 +29,7 @@ namespace Xania.AppWorkspace
             var sourceBlob = containerService.GetBlobClient(blobName);
             if (await sourceBlob.ExistsAsync())
             {
-                var destBlob = containerService.GetBlobClient("approved/" + blobName);
+                var destBlob = containerService.GetBlobClient(targetName + "/" + blobName);
                 var copy = await destBlob.StartCopyFromUriAsync(sourceBlob.Uri);
                 await copy.WaitForCompletionAsync();
                 await sourceBlob.DeleteAsync();
