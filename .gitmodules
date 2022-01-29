@@ -1,9 +1,6 @@
 [submodule "libs/view"]
 	path = libs/view
 	url = https://github.com/xania/view.git
-[submodule "router"]
-	path = router
-	url = https://github.com/xania/router.git
-[submodule "libs\\router"]
-	path = libs\\router
+[submodule "libs/router"]
+	path = libs/router
 	url = https://github.com/xania/router.git
