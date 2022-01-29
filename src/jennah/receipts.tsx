@@ -16,8 +16,8 @@ export function Receipts() {
       <img class="receipts-carousel__img" src={imageUrl}></img>
       <div class="receipts-carousel__toolbar">
         <button click={deleteBlob}>delete</button>
-        <button click={(_) => moveBlob("approved")}>approve</button>
-        <button click={(_) => moveBlob("paused")}>pause</button>
+        <button click={(_) => moveBlob("jennah")}>jennah</button>
+        <button click={(_) => moveBlob("xania")}>xania</button>
         <button click={moveNext}>next</button>
       </div>
     </div>
