@@ -1,6 +1,7 @@
 const fspath = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
   return {
@@ -104,6 +105,9 @@ module.exports = (env, argv) => {
         filename: "index.html",
         template: fspath.resolve(__dirname, "./index.webpack.html"),
         inject: true,
+      }),
+      new CopyWebpackPlugin({
+        patterns: [{ from: "assets" }],
       }),
     ],
   };
