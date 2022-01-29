@@ -1,5 +1,6 @@
 import { ContainerClient } from "@azure/storage-blob";
 import { jsx, State } from "@xania/view";
+import "./receipts.scss";
 
 export function Receipts() {
   var client = new ContainerClient(
@@ -11,12 +12,13 @@ export function Receipts() {
   moveNext();
 
   return (
-    <div>
-      <h1>[{blobName}]</h1>
-      <img src={imageUrl}></img>
-      <button click={moveNext}>next</button>
-      <button click={deleteBlob}>delete</button>
-      <button click={approveBlob}>approve</button>
+    <div class="receipts-carousel">
+      <img class="receipts-carousel__img" src={imageUrl}></img>
+      <div class="receipts-carousel__toolbar">
+        <button click={deleteBlob}>delete</button>
+        <button click={approveBlob}>approve</button>
+        <button click={moveNext}>next</button>
+      </div>
     </div>
   );
 
@@ -43,6 +45,9 @@ export function Receipts() {
       imageUrl.set(client.url + "/" + value.name);
     } else if (!done) {
       return moveNext();
+    } else {
+      blobName.set(null);
+      imageUrl.set("");
     }
   }
 }

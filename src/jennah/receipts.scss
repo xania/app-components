@@ -1,0 +1,16 @@
+.receipts-carousel {
+  display: flex;
+  flex-direction: column;
+
+  &__img {
+    flex: auto;
+    object-fit: contain;
+  }
+  &__toolbar {
+    button {
+      height: 40px;
+      margin: 4px;
+      padding: 10px;
+    }
+  }
+}
