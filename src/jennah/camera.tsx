@@ -1,6 +1,6 @@
 import { jsx } from "@xania/view";
 import { createHtmlElement } from "@xania/view/lib/util/create-dom";
-import { uploadFiles } from "../storage/upload-files";
+import { uploadFiles } from "../services/storage/upload-files";
 
 import "./style.scss";
 

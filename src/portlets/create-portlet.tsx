@@ -1,6 +1,6 @@
 import { jsx } from "@xania/view";
 import { DropZone } from "../drop-zone";
-import { uploadFiles } from "../storage/upload-files";
+import { uploadFiles } from "../services/storage/upload-files";
 
 interface PortletProps {
   title: string;

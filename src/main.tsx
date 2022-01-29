@@ -2,22 +2,27 @@ import "./style.css";
 import { jsx, render } from "@xania/view";
 // import CreatePortlet from "./portlets/create-portlet";
 import { CameraComponent } from "./jennah/camera";
-import { BrowserOutlet, notFound } from "@xania/router";
+import { BrowserOutlet, anyRoute } from "@xania/router";
 import { route } from "@xania/router";
-import { ListDirectories } from "./storage";
+import { ListDirectories } from "./services/storage";
+import { Receipts } from "./jennah/receipts";
 
-const outlet = render(
+render(
   <BrowserOutlet
     routes={[
       route("test", <Test />),
       route("camera", <CameraComponent />),
-      notFound((context) => <div>test de test {context}</div>),
+      route("receipts", <Receipts />),
+      anyRoute((context) => (
+        <div>
+          <div style="color: gray; font-size: 40px;">404</div>
+          <div>/{context.url.path.join("/")}</div>
+        </div>
+      )),
     ]}
   />,
   "#app"
 );
-
-console.log(outlet);
 
 function Test() {
   return <ListDirectories></ListDirectories>;

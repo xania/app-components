@@ -24,12 +24,11 @@ export function ListDirectories() {
 }
 
 function iterate(c: ViewContainer, asyncIterator: { next(): any }) {
-  asyncIterator.next().then((e) => {
-    const value = e.value;
+  asyncIterator.next().then(({ value, done }) => {
     if (value?.kind === "prefix") {
       c.push([value]);
     }
-    if (!e.done) {
+    if (!done) {
       iterate(c, asyncIterator);
     }
   });
