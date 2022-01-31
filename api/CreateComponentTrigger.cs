@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Xania.AppWorkspace
 {
@@ -22,9 +23,9 @@ namespace Xania.AppWorkspace
 
             foreach (var file in req.Form.Files)
             {
-                var fileName = file.FileName;
+                var blobName = Path.Combine("uploads", file.FileName);
                 using var fs = file.OpenReadStream();
-                var blobClient = new BlobClient(connectionString, "xania", fileName);
+                var blobClient = new BlobClient(connectionString, "xania", blobName);
 
                 await blobClient.UploadAsync(fs);
             }

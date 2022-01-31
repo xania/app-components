@@ -12,7 +12,7 @@ namespace Xania.AppWorkspace
     {
         [FunctionName("DeleteBlob")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "DELETE", Route = "blob/{blobName}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "DELETE", Route = "blob/{*blobName}")] HttpRequest req,
             string blobName,
             ExecutionContext context,
             ILogger log)
