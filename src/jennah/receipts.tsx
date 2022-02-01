@@ -1,11 +1,12 @@
 import { jsx, State } from "@xania/view";
 import styles from "./receipts.module.scss";
+console.log(styles);
 
 export function Receipts() {
   const blobs = listBlobs();
   var blobName = new State<string | null>(null);
-  var imageUrl = blobName.map(
-    (x) => "https://appcomponents.blob.core.windows.net/xania/" + x
+  var imageUrl = blobName.map((x) =>
+    x ? "https://appcomponents.blob.core.windows.net/xania/" + x : null
   );
   moveNext();
 
@@ -51,7 +52,6 @@ export function Receipts() {
 
   async function moveNext() {
     const { value, done } = await blobs.next();
-    console.log({ value, done });
     if (value) {
       blobName.set(value.blobName);
     } else if (!done) {

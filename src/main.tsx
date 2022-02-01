@@ -5,7 +5,7 @@ import { WebApp, fallback } from "@xania/router";
 import { route } from "@xania/router";
 import { Receipts } from "./jennah/receipts";
 import { RouteContext } from "@xania/router";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 class Test {
   constructor(private ctx: RouteContext) {}
@@ -17,7 +17,7 @@ class Test {
 <WebApp
   render={render}
   routes={[
-    route("test/asdafs/asfdasd", (ctx) => new Test(ctx)),
+    route("test", (ctx) => new Test(ctx)),
     route("camera", CameraComponent),
     route("receipts", Receipts),
     fallback((context) => (

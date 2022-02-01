@@ -7,7 +7,15 @@ module.exports = (env, argv) => {
   return {
     target: "web",
     entry: ["./src/main.tsx"],
-    mode: "production",
+    mode: "development",
+    devServer: {
+      compress: false,
+      historyApiFallback: true,
+      proxy: {
+        "/api": "http://localhost:7071",
+        changeOrigin: true,
+      },
+    },
     // optimization: {
     //   splitChunks: {
     //     chunks: "all",
@@ -28,29 +36,22 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.css$/,
-          use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+          use: [
+            { loader: MiniCssExtractPlugin.loader },
+            {
+              loader: "css-loader",
+              options: {
+                importLoaders: 1,
+                modules: true,
+              },
+            },
+          ],
         },
         {
           test: /\.s[ac]ss$/i,
           use: [
             {
-              loader: "file-loader",
-              options: {
-                esModule: true,
-                name: "[path][name]-[hash].css",
-              },
-            },
-            { loader: "extract-loader" },
-            // { loader: "style-loader" },
-            {
               loader: MiniCssExtractPlugin.loader,
-              options: {
-                // you can specify a publicPath here
-                // by default it uses publicPath in webpackOptions.output
-                publicPath: "./",
-                // esModule: true,
-                // hmr: true,
-              },
             },
             {
               loader: "css-loader",
