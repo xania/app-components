@@ -2,7 +2,6 @@ import { jsx, State } from "@xania/view";
 import "./receipts.scss";
 
 export function Receipts() {
-
   const blobs = listBlobs();
   var blobName = new State<string | null>(null);
   var imageUrl = blobName.map(
@@ -29,12 +28,6 @@ export function Receipts() {
       </div>
     </div>
   );
-
-  async function close() {
-    return updateBlob(blobName.current, {
-      targetDir: "closed",
-    });
-  }
 
   async function deleteBlob() {
     const blobToDelete = blobName.current;
