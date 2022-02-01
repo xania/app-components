@@ -2,23 +2,12 @@ import { jsx, State } from "@xania/view";
 import "./receipts.scss";
 
 export function Receipts() {
-  // var containerClient = new ContainerClient(
-  //   "https://appcomponents.blob.core.windows.net/" + containerName
-  // );
 
-  // var blobService = new BlobServiceClient(
-  //   "DefaultEndpointsProtocol=https;AccountName=appcomponents;AccountKey=neO7Qt4WOs0fqF3TqrGBB1kgQw29cQ/dVa1gNqoLgrvBoAfDTmKrFcbAqFgtj8GmD1Iol4843gjZ8s+PM4Jj4w==;EndpointSuffix=core.windows.net"
-  // );
-  // var blobService = new BlobServiceClient("appcomponents");
-  // const blobs = blobService.findBlobsByTags(
-  //   `@container = '${containerName}' AND "company"='xania'`
-  // );
-  // const blobs = containerClient.listBlobsByHierarchy("/", {
-  //   // includeTags: true,
-  // });
   const blobs = listBlobs();
   var blobName = new State<string | null>(null);
-  var imageUrl = new State<string | null>(null);
+  var imageUrl = blobName.map(
+    (x) => "https://appcomponents.blob.core.windows.net/xania/" + x
+  );
   moveNext();
 
   return (
@@ -36,7 +25,6 @@ export function Receipts() {
         >
           xania
         </button>
-        <button click={close}>close</button>
         <button click={moveNext}>next</button>
       </div>
     </div>
@@ -73,14 +61,10 @@ export function Receipts() {
     console.log({ value, done });
     if (value) {
       blobName.set(value.blobName);
-      imageUrl.set(
-        "https://appcomponents.blob.core.windows.net/xania/" + value.blobName
-      );
     } else if (!done) {
       return moveNext();
     } else {
       blobName.set(null);
-      imageUrl.set(null);
     }
   }
 }
