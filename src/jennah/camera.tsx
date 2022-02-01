@@ -2,7 +2,7 @@ import { jsx } from "@xania/view";
 import { createHtmlElement } from "@xania/view/lib/util/create-dom";
 import { uploadFiles } from "../services/storage/upload-files";
 
-import "./style.scss";
+import styles from "./camera.module.scss";
 
 // Set constraints for the video stream
 const constraints = { video: { facingMode: "environment" }, audio: false };
@@ -16,10 +16,10 @@ export function CameraComponent() {
   videoElt.playsInline = true;
 
   return (
-    <div>
+    <div class={styles["camera-app"]}>
       {videoElt}
       {canvasElt}
-      <div class="button-container">
+      <div class={styles["button-container"]}>
         <button click={capture}>capture</button>
       </div>
       {startCamera}
@@ -27,7 +27,7 @@ export function CameraComponent() {
   );
 
   function capture() {
-    canvasElt.classList.remove("taken");
+    canvasElt.classList.remove(styles["taken"]);
     canvasElt.style.display = "block";
     canvasElt.width = videoElt.videoWidth / 1.414;
     canvasElt.height = videoElt.videoHeight / 1.414;
@@ -35,7 +35,7 @@ export function CameraComponent() {
       .getContext("2d")
       .drawImage(videoElt, 0, 0, canvasElt.width, canvasElt.height);
     canvasElt.toBlob((blob) => {
-      canvasElt.classList.add("taken");
+      canvasElt.classList.add(styles["taken"]);
       uploadFiles([new File([blob], new Date().toISOString() + ".png")]).then(
         () => {
           // canvasElt.style.display = "none";

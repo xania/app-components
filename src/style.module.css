@@ -3,7 +3,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: black;
 }
 
 html,
@@ -11,6 +10,14 @@ body,
 section {
   padding: 0;
   margin: 0;
+}
+
+.section {
+  background-color: black;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
+  font-size: 30px;
 }
 
 header.top-bar {
