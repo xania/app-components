@@ -1,6 +1,5 @@
-import { jsx, State } from "@xania/view";
-import styles from "./receipts.module.scss";
-console.log(styles);
+import { jsx, State, CssModule } from "@xania/view";
+import style from "./receipts.module.scss";
 
 export function Receipts() {
   const blobs = listBlobs();
@@ -11,23 +10,25 @@ export function Receipts() {
   moveNext();
 
   return (
-    <div class={styles["receipts-carousel"]}>
-      <img class={styles["receipts-carousel__img"]} src={imageUrl}></img>
-      <div class={styles["receipts-carousel__toolbar"]}>
-        <button click={deleteBlob}>delete</button>
-        <button
-          click={(_) => updateBlob(blobName.current, { targetDir: "jennah" })}
-        >
-          jennah
-        </button>
-        <button
-          click={(_) => updateBlob(blobName.current, { targetDir: "xania" })}
-        >
-          xania
-        </button>
-        <button click={moveNext}>next</button>
+    <CssModule classes={style}>
+      <div class="receipts-carousel">
+        <img class="receipts-carousel__img" src={imageUrl}></img>
+        <div class="receipts-carousel__toolbar">
+          <button click={deleteBlob}>delete</button>
+          <button
+            click={(_) => updateBlob(blobName.current, { targetDir: "jennah" })}
+          >
+            jennah
+          </button>
+          <button
+            click={(_) => updateBlob(blobName.current, { targetDir: "xania" })}
+          >
+            xania
+          </button>
+          <button click={moveNext}>next</button>
+        </div>
       </div>
-    </div>
+    </CssModule>
   );
 
   async function deleteBlob() {
