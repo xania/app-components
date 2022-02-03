@@ -4,20 +4,13 @@ import { CameraComponent } from "./jennah/camera";
 import { WebApp, fallback } from "@xania/router";
 import { route } from "@xania/router";
 import { Receipts } from "./jennah/receipts";
-import { RouteContext } from "@xania/router";
 import style from "./style.module.scss";
-
-class Test {
-  constructor(private ctx: RouteContext) {}
-  get view(): any {
-    return <div>[test de test] {this.ctx.path.join("-")}</div>;
-  }
-}
+import { KitchenSink } from "./kitchen-sink";
 
 <WebApp
   render={render}
   routes={[
-    route("test", (ctx) => new Test(ctx)),
+    route("kitchen-sink", (ctx) => new KitchenSink(ctx)),
     route("camera", CameraComponent),
     route("receipts", Receipts),
     fallback((context) => (
