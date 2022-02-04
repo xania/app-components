@@ -11,11 +11,12 @@ export class KitchenSink {
 
     return (
       <div>
-        <button click={onClick}>add</button>
+        <button click={addOne}>add</button>
         <button click={(_) => addMany(1000)}>add 1000</button>
         <button click={(_) => addMany(10000)}>add 10000</button>
         <button click={(_) => container.removeAt(3)}>delete</button>
         <button click={(_) => container.swap(3, 1)}>swap</button>
+        <button click={updateEvery10th}>update every 10th</button>
         <button click={container.clear}>clear</button>
         <div>{container.map(<Row />)}</div>
       </div>
@@ -60,12 +61,18 @@ export class KitchenSink {
       container.push(data);
     }
 
-    function onClick() {
+    function addOne() {
       container.push([
         {
           name: "person-" + container.length,
         },
       ]);
+    }
+
+    function updateEvery10th() {
+      for (let i = 0, len = container.length; i < len; i += 10) {
+        container.updateAt(i, "name", (p) => p.name + " !!!");
+      }
     }
   }
 }
