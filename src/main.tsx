@@ -5,12 +5,14 @@ import { WebApp, fallback } from "@xania/router";
 import { route } from "@xania/router";
 import { Receipts } from "./jennah/receipts";
 import style from "./style.module.scss";
-import { KitchenSink } from "./kitchen-sink";
+import { Benchmark } from "./kitchen-sink/benchmark";
+import { RendererDemo } from "./kitchen-sink/renderer";
 
 <WebApp
   render={render}
   routes={[
-    route("kitchen-sink", (ctx) => new KitchenSink(ctx)),
+    route("benchmark", (ctx) => new Benchmark(ctx)),
+    route("renderer", RendererDemo),
     route("camera", CameraComponent),
     route("receipts", Receipts),
     fallback((context) => (
