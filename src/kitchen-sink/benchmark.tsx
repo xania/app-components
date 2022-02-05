@@ -18,7 +18,7 @@ export class Benchmark {
         <button click={(_) => container.swap(3, 1)}>swap</button>
         <button click={updateEvery10th}>update every 10th</button>
         <button click={container.clear}>clear</button>
-        <div>{container.map(<Row />)}</div>
+        <section>{container.map(<Row />)}</section>
       </div>
     );
 
