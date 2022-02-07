@@ -29,8 +29,8 @@ export function CameraComponent() {
   function capture() {
     canvasElt.classList.remove(styles["taken"]);
     canvasElt.style.display = "block";
-    canvasElt.width = videoElt.videoWidth / 1.414;
-    canvasElt.height = videoElt.videoHeight / 1.414;
+    canvasElt.width = videoElt.videoWidth;
+    canvasElt.height = videoElt.videoHeight;
     canvasElt
       .getContext("2d")
       .drawImage(videoElt, 0, 0, canvasElt.width, canvasElt.height);
