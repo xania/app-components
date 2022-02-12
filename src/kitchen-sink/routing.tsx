@@ -1,70 +1,63 @@
-import { pathMatcher } from "@xania/router/lib/route/path-matcher";
-import { jsx } from "@xania/view";
+import { jsx, RenderTarget } from "@xania/view";
+import { createRouter, Route, route } from "./router";
 
-export function Routing() {
-  var router = new Router();
-  router.goto(["module", "4576"]);
-
-  return <div>routings</div>;
-}
-
-class Router {
-  goto(path: Path) {
-    for (const route of routes) {
-      const matchResult = route.match(path);
-      if (matchResult) {
-        console.log(matchResult);
-      }
-    }
+class MyComponent {
+  render() {
+    return Promise.resolve("component route");
   }
 }
 
-type Path = string[];
-interface PathMatchResult {
-  segment: router.Path;
-  params: router.RouteParams;
-}
-interface Route<T> {
-  match(path: string[]): PathMatchResult;
-  view: View<T> | PromiseLike<View<T>>;
-}
-type ViewFn<TView> = () => TView;
-type ViewComponent<T> = { view: T | PromiseLike<T>; routes?: Route<T>[] };
-interface ViewConstructor<TView> {
-  new (): View<TView>;
-}
-
-type View<T> =
-  | T
-  | PromiseLike<View<T>>
-  | ViewComponent<T>
-  | ViewConstructor<T>
-  | ViewFn<T>;
-
-const module = Promise.resolve<View<number>>({
-  view: 987,
-  routes: [route(["4576"], 4576)],
-});
-
-function route<T>(path: Path, view: View<T> | PromiseLike<View<T>>): Route<T> {
-  const matcher = pathMatcher(path);
-  return {
-    match: matcher,
-    view,
-  };
-}
-
-class MyComponent {
-  view = Promise.resolve(76767);
-}
-
 function MyFunction() {
-  return 345;
+  return "fun route";
 }
 
-const routes: Route<number>[] = [
-  route<number>(["module"], module),
-  route<number>(["a"], 123),
-  route<number>(["fun"], MyFunction),
-  route<number>(["comp"], MyComponent),
+const routes: Route<string>[] = [
+  route<string>(["start"], "start route"),
+  route<string>(
+    ["module"],
+    import("./module").then((e) => e.MyModule)
+  ),
+  route<string>(["simple"], "route-a"),
+  route<string>(["fun"], MyFunction),
+  route<string>(["comp"], MyComponent),
+  route<string>(["promise"], Promise.resolve("promise route")),
 ];
+
+export function Routing() {
+  const app = createRouter(routes);
+  app.nav(["start"]);
+
+  class Outlet {
+    render(target: RenderTarget) {
+      const div = document.createElement("div");
+      target.appendChild(div);
+      const subscr = app.subscribe({
+        next(view) {
+          div.textContent = view;
+        },
+      });
+
+      return {
+        dispose() {
+          subscr.unsubscribe();
+        },
+      };
+    }
+  }
+
+  return (
+    <div>
+      <div>
+        <button click={(_) => app.nav(["simple"])}>simple</button>
+        <button click={(_) => app.nav(["module"])}>module</button>
+        <button click={(_) => app.nav(["module", "child"])}>
+          module child
+        </button>
+        <button click={(_) => app.nav(["fun"])}>fun</button>
+        <button click={(_) => app.nav(["comp"])}>component</button>
+        <button click={(_) => app.nav(["promise"])}>promise</button>
+      </div>
+      <Outlet />
+    </div>
+  );
+}
