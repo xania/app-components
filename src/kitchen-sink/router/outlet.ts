@@ -1,5 +1,5 @@
 import { RenderTarget } from "@xania/view";
-import { NextObserver, Observer } from "rxjs";
+import { NextObserver } from "rxjs";
 import { RouteResolution, RouteResolutionType } from "./route-resolution";
 
 export class Outlet<T> {
@@ -11,14 +11,14 @@ export class Outlet<T> {
         switch (routeResolution.type) {
           case RouteResolutionType.Append:
             {
-              const { index } = routeResolution.context;
+              const { index } = routeResolution;
               for (let i = index; i < views.length; i++) {
                 views[i].remove();
               }
               views.length = index + 1;
               const div = document.createElement("div");
               target.appendChild(div);
-              div.textContent = `[${routeResolution.context.index}] ${routeResolution.view}`;
+              div.textContent = `[${routeResolution.index}] ${routeResolution.view}`;
               views[index] = div;
             }
             break;

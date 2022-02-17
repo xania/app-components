@@ -10,11 +10,15 @@ export interface RouteAppendResolution<T> {
   view: T;
   context: RouteContext;
   resolve?: RouteResolver<T>;
+  remainingPath: Path;
+  index: number;
 }
 
 export interface RouteUnchangedResolution {
   type: RouteResolutionType.Unchanged;
   context: RouteContext;
+  remainingPath: Path;
+  index: number;
 }
 
 export interface RouterDisposeResolution {
@@ -27,8 +31,6 @@ export type Path = string[];
 export interface RouteContext {
   path: Path;
   params: router.RouteParams;
-  remainingPath: Path;
-  index: number;
 }
 
 export type RouteResolver<T> = (

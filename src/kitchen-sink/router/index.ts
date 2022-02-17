@@ -55,87 +55,80 @@ export function isPromiseLike<T>(
 
 function createRouteResolver<T>(routes: Route<T>[]): RouteResolver<T> {
   if (!routes) return null;
-  let next: RouteAppendResolution<T> | null = null;
+  let nextPromise: PromiseLike<RouteResolution<T>> = Promise.resolve(null);
   return (path: Path, index?: number): PromiseLike<RouteResolution<T>> => {
     if (path.length === 0) {
-      next = null;
+      nextPromise = Promise.resolve(null);
       return Promise.resolve({
         type: RouteResolutionType.Dispose,
         index,
       });
     }
-    if (
-      next &&
-      next.context.path.length > 0 &&
-      arrayStartsWith(path, next.context.path)
-    ) {
-      return Promise.resolve({
-        context: {
-          ...next.context,
+    return (nextPromise = nextPromise.then((next) => {
+      if (
+        next &&
+        next.type === RouteResolutionType.Append &&
+        next.context.path.length > 0 &&
+        arrayStartsWith(path, next.context.path)
+      ) {
+        return {
+          ...next,
           remainingPath: path.slice(next.context.path.length),
-        },
-        resolve: next.resolve,
-        type: RouteResolutionType.Unchanged,
-      });
-    }
-
-    for (const route of routes) {
-      const matchResult = route.match(path);
-      if (matchResult) {
-        const { segment, params } = matchResult;
-        const { view } = route;
-        const context: RouteContext = {
-          params,
-          path: segment,
-          remainingPath: path.slice(segment.length),
-          index,
+          type: RouteResolutionType.Unchanged,
         };
-        const resolution = isPromiseLike(view)
-          ? view.then((x) => asRouteResolution(x, context))
-          : asRouteResolution(view, context);
-        return resolution.then((r) => (next = r));
       }
-    }
 
-    return Promise.resolve((next = null));
+      for (const route of routes) {
+        const matchResult = route.match(path);
+        if (matchResult) {
+          const { segment, params } = matchResult;
+          const { view } = route;
+          const context: RouteContext = {
+            params,
+            path: segment,
+          };
+          const remainingPath = path.slice(segment.length);
+          return asRouteView<T>(view).then((routeView) => {
+            return {
+              view: routeView.view,
+              resolve: createRouteResolver(routeView.routes),
+              context,
+              remainingPath,
+              index,
+              type: RouteResolutionType.Append,
+            };
+          });
+        }
+      }
+      return null;
+    }));
   };
 
-  function asRouteResolution<T>(
-    view: View<T>,
-    context: RouteContext
-  ): PromiseLike<RouteAppendResolution<T>> {
-    if (view instanceof Function) {
+  function asRouteView<T>(
+    view: View<T> | PromiseLike<View<T>>
+  ): PromiseLike<RouteView<T>> {
+    if (isPromiseLike(view)) {
+      return view.then(asRouteView);
+    } else if (view instanceof Function) {
       try {
-        return asRouteResolution((view as any)(), context);
+        return Promise.resolve({
+          view: view.apply(null, []),
+        } as RouteView<T>);
       } catch {
-        const component = Reflect.construct(
-          view as any,
-          []
-        ) as ViewComponent<T>;
-        return asRouteResolution(component, context);
+        const component = Reflect.construct(view, []);
+        return mapPromise(component.render(), (x) => ({
+          view: x,
+          routes: component.routes,
+        }));
       }
     } else if (isViewComponent(view)) {
-      const result = view.render();
-      if (isPromiseLike(result)) {
-        return result.then((x) => ({
-          context,
-          view: x,
-          resolve: createRouteResolver(view.routes),
-          type: RouteResolutionType.Append,
-        }));
-      } else {
-        return Promise.resolve({
-          context,
-          view: result,
-          resolve: createRouteResolver(view.routes),
-          type: RouteResolutionType.Append,
-        });
-      }
+      return mapPromise(view.render(), (x) => ({
+        view: x,
+        routes: view.routes,
+      }));
     } else {
       return Promise.resolve({
-        context,
         view,
-        type: RouteResolutionType.Append,
       });
     }
   }
@@ -154,7 +147,7 @@ export function createRouter<T>(routes: Route<T>[]) {
     Ro.switchMap((remainingPath) => rootResolve(remainingPath, 0)),
     Ro.expand((rr) =>
       "resolve" in rr && rr.resolve instanceof Function
-        ? rr.resolve(rr.context.remainingPath, rr.context.index + 1)
+        ? rr.resolve(rr.remainingPath, rr.index + 1)
         : Rx.EMPTY
     )
   );
@@ -177,4 +170,17 @@ function arrayStartsWith<T>(arr: T[], segment: T[]) {
   }
 
   return true;
+}
+
+function mapPromise<T, U>(x: T | PromiseLike<T>, map: (x: T) => U) {
+  if (isPromiseLike(x)) {
+    return x.then((e) => mapPromise(e, map));
+  } else {
+    return Promise.resolve(map(x));
+  }
+}
+
+interface RouteView<T> {
+  view: T;
+  routes?: Route<T>[];
 }
