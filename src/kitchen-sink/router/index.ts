@@ -147,12 +147,15 @@ export function isViewComponent<T>(view: View<T>): view is ViewComponent<T> {
   return view && view["render"] instanceof Function;
 }
 
-export function createRouter<T>(routes: RouteInput<T>[]) {
+export function createRouter<T>(routes: RouteInput<T>[], basePath: Path = []) {
   const subject = new Rx.ReplaySubject<Path>();
 
   const rootResolve = createRouteResolver(routes);
 
   const entries: Rx.Observable<RouteResolution<T>> = subject.pipe(
+    Ro.map((x) =>
+      arrayStartsWith(x, basePath) ? x.slice(basePath.length) : []
+    ),
     Ro.switchMap((remainingPath) => rootResolve(remainingPath, 0)),
     Ro.filter((rr) => !!rr),
     Ro.expand((rr) =>
@@ -163,12 +166,13 @@ export function createRouter<T>(routes: RouteInput<T>[]) {
   );
 
   return {
-    nav(path: Path) {
-      subject.next(path);
+    nav(path: string | Path) {
+      if (Array.isArray(path)) subject.next(path);
+      else subject.next(path.split("/"));
     },
     subscribe: entries.subscribe.bind(entries),
   } as {
-    nav: (path: Path) => void;
+    nav: (path: string | Path) => void;
     subscribe: typeof entries.subscribe;
   };
 }

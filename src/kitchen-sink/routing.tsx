@@ -13,7 +13,7 @@ function MyFunction() {
 }
 
 const routes: RouteInput<string>[] = [
-  { path: "start/test", view: "start route" },
+  { path: "start", view: "start route" },
   { path: "module", view: import("./module").then((e) => e.MyModule) },
   { path: "simple", view: "route a" },
   { path: "fun", view: MyFunction },
@@ -22,8 +22,9 @@ const routes: RouteInput<string>[] = [
 ];
 
 export function Routing() {
-  const router = createRouter(routes);
-  router.nav(["start"]);
+  const router = createRouter(routes, ["routing"]);
+  console.log(location.pathname.split("/").filter((e) => !!e));
+  router.nav(location.pathname.split("/").filter((e) => !!e));
 
   const outlet = new Outlet<string>(router, (element, target) => {
     const div = document.createElement("div", {});
@@ -40,14 +41,19 @@ export function Routing() {
   return (
     <div>
       <div>
-        <button click={(_) => router.nav(["simple"])}>simple</button>
-        <button click={(_) => router.nav(["module"])}>module</button>
-        <button click={(_) => router.nav(["module", "child"])}>
+        <button click={(_) => router.nav(["routing", "simple"])}>simple</button>
+        <button click={(_) => router.nav(["routing", "module"])}>module</button>
+        <button click={(_) => router.nav(["routing", "module", "child"])}>
           module child
         </button>
-        <button click={(_) => router.nav(["fun"])}>fun</button>
-        <button click={(_) => router.nav(["comp"])}>component</button>
-        <button click={(_) => router.nav(["promise"])}>promise</button>
+        <button click={(_) => router.nav(["routing", "fun"])}>fun</button>
+        <button click={(_) => router.nav(["routing", "comp"])}>
+          component
+        </button>
+        <button click={(_) => router.nav(["routing", "promise"])}>
+          promise
+        </button>
+        <button click={(_) => router.nav([])}>empty</button>
       </div>
       {outlet}
     </div>

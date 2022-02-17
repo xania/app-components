@@ -15,22 +15,25 @@ export class Outlet<T> {
     const outlet = this;
     const subscr = this.navigator.subscribe({
       next(routeResolution) {
+        const routeIndex = routeResolution.index;
         switch (routeResolution.type) {
           case RouteResolutionType.Append:
             {
-              const { index } = routeResolution;
-              for (let i = index; i < views.length; i++) {
+              for (let i = routeIndex; i < views.length; i++) {
                 views[i].dispose();
               }
-              views.length = index + 1;
-              views[index] = outlet.renderView(routeResolution.view, target);
+              views.length = routeIndex + 1;
+              views[routeIndex] = outlet.renderView(
+                routeResolution.view,
+                target
+              );
             }
             break;
           case RouteResolutionType.Dispose:
-            const { index } = routeResolution;
-            if (index < views.length) {
-              views[index].dispose();
+            for (let i = routeIndex; i < views.length; i++) {
+              views[i].dispose();
             }
+            views.length = routeIndex;
             break;
         }
       },
