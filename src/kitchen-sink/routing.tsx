@@ -1,5 +1,5 @@
-import { jsx, render, Template } from "@xania/view";
-import { createRouter, Route, route } from "./router";
+import { jsx } from "@xania/view";
+import { createRouter, RouteInput } from "./router";
 import { Outlet } from "./router/outlet";
 
 class MyComponent {
@@ -12,26 +12,23 @@ function MyFunction() {
   return "fun route";
 }
 
-const routes: Route<string>[] = [
-  route<string>(["start"], "start route"),
-  route<string>(
-    ["module"],
-    import("./module").then((e) => e.MyModule)
-  ),
-  route<string>(["simple"], "route a"),
-  route<string>(["fun"], MyFunction),
-  route<string>(["comp"], MyComponent),
-  route<string>(["promise"], Promise.resolve("promise route")),
+const routes: RouteInput<string>[] = [
+  { path: "start/test", view: "start route" },
+  { path: "module", view: import("./module").then((e) => e.MyModule) },
+  { path: "simple", view: "route a" },
+  { path: "fun", view: MyFunction },
+  { path: "comp", view: MyComponent },
+  { path: "promise", view: Promise.resolve("promise route") },
 ];
 
 export function Routing() {
-  const app = createRouter(routes);
-  app.nav(["start"]);
+  const router = createRouter(routes);
+  router.nav(["start"]);
 
-  const outlet = new Outlet<string>(app, (element, target) => {
-    const div = document.createElement("div");
-    target.appendChild(div);
+  const outlet = new Outlet<string>(router, (element, target) => {
+    const div = document.createElement("div", {});
     div.textContent = element;
+    target.appendChild(div);
 
     return {
       dispose() {
@@ -43,14 +40,14 @@ export function Routing() {
   return (
     <div>
       <div>
-        <button click={(_) => app.nav(["simple"])}>simple</button>
-        <button click={(_) => app.nav(["module"])}>module</button>
-        <button click={(_) => app.nav(["module", "child"])}>
+        <button click={(_) => router.nav(["simple"])}>simple</button>
+        <button click={(_) => router.nav(["module"])}>module</button>
+        <button click={(_) => router.nav(["module", "child"])}>
           module child
         </button>
-        <button click={(_) => app.nav(["fun"])}>fun</button>
-        <button click={(_) => app.nav(["comp"])}>component</button>
-        <button click={(_) => app.nav(["promise"])}>promise</button>
+        <button click={(_) => router.nav(["fun"])}>fun</button>
+        <button click={(_) => router.nav(["comp"])}>component</button>
+        <button click={(_) => router.nav(["promise"])}>promise</button>
       </div>
       {outlet}
     </div>

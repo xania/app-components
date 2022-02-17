@@ -1,17 +1,18 @@
 import * as Rx from "rxjs";
 import * as Ro from "rxjs/operators";
-import { pathMatcher } from "@xania/router/lib/route/path-matcher";
 import {
   RouteResolutionType,
   RouteResolver,
   RouteResolution,
   Path,
-  RouteAppendResolution,
   RouteContext,
 } from "./route-resolution";
+import { PathTemplate } from "./path-template";
+import { pathMatcher } from "./path-matcher";
+export type PathMatcher = (path: router.Path) => PathMatchResult | null;
 
 export function route<T>(
-  path: Path,
+  path: string | PathMatcher | PathTemplate,
   view: View<T> | PromiseLike<View<T>>
 ): Route<T> {
   const matcher = pathMatcher(path);
@@ -30,7 +31,10 @@ export interface Route<T> {
   view: View<T> | PromiseLike<View<T>>;
 }
 type ViewFn<T> = () => T | PromiseLike<T>;
-type ViewComponent<T> = { render(): T | PromiseLike<T>; routes?: Route<T>[] };
+type ViewComponent<T> = {
+  render(): T | PromiseLike<T>;
+  routes?: RouteInput<T>[];
+};
 interface ViewConstructor<TView> {
   new (): ViewComponent<TView>;
 }
@@ -53,9 +57,14 @@ export function isPromiseLike<T>(
   return x && x["then"] instanceof Function;
 }
 
-function createRouteResolver<T>(routes: Route<T>[]): RouteResolver<T> {
-  if (!routes) return null;
+function createRouteResolver<T>(
+  routeInputs: RouteInput<T>[]
+): RouteResolver<T> {
+  if (!routeInputs) return null;
+
   let nextPromise: PromiseLike<RouteResolution<T>> = Promise.resolve(null);
+  const routes = routeInputs.map((x) => route(x.path, x.view));
+
   return (path: Path, index?: number): PromiseLike<RouteResolution<T>> => {
     if (path.length === 0) {
       nextPromise = Promise.resolve(null);
@@ -138,15 +147,16 @@ export function isViewComponent<T>(view: View<T>): view is ViewComponent<T> {
   return view && view["render"] instanceof Function;
 }
 
-export function createRouter<T>(routes: Route<T>[]) {
+export function createRouter<T>(routes: RouteInput<T>[]) {
   const subject = new Rx.ReplaySubject<Path>();
 
   const rootResolve = createRouteResolver(routes);
 
   const entries: Rx.Observable<RouteResolution<T>> = subject.pipe(
     Ro.switchMap((remainingPath) => rootResolve(remainingPath, 0)),
+    Ro.filter((rr) => !!rr),
     Ro.expand((rr) =>
-      "resolve" in rr && rr.resolve instanceof Function
+      rr && "resolve" in rr && rr.resolve instanceof Function
         ? rr.resolve(rr.remainingPath, rr.index + 1)
         : Rx.EMPTY
     )
@@ -182,5 +192,10 @@ function mapPromise<T, U>(x: T | PromiseLike<T>, map: (x: T) => U) {
 
 interface RouteView<T> {
   view: T;
-  routes?: Route<T>[];
+  routes?: RouteInput<T>[];
+}
+
+export interface RouteInput<T> {
+  path: string | Path;
+  view: View<T> | PromiseLike<View<T>>;
 }
