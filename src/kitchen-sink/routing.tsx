@@ -1,7 +1,6 @@
-import { jsx, RenderTarget } from "@xania/view";
+import { jsx, render, Template } from "@xania/view";
 import { createRouter, Route, route } from "./router";
 import { Outlet } from "./router/outlet";
-import { RouteResolutionType } from "./router/route-resolution";
 
 class MyComponent {
   render() {
@@ -19,7 +18,7 @@ const routes: Route<string>[] = [
     ["module"],
     import("./module").then((e) => e.MyModule)
   ),
-  route<string>(["simple"], "route-a"),
+  route<string>(["simple"], "route a"),
   route<string>(["fun"], MyFunction),
   route<string>(["comp"], MyComponent),
   route<string>(["promise"], Promise.resolve("promise route")),
@@ -29,7 +28,17 @@ export function Routing() {
   const app = createRouter(routes);
   app.nav(["start"]);
 
-  const outlet = new Outlet<string>(app);
+  const outlet = new Outlet<string>(app, (element, target) => {
+    const div = document.createElement("div");
+    target.appendChild(div);
+    div.textContent = element;
+
+    return {
+      dispose() {
+        div.remove();
+      },
+    };
+  });
 
   return (
     <div>

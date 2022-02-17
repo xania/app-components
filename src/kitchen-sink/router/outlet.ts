@@ -2,10 +2,17 @@ import { RenderTarget } from "@xania/view";
 import { NextObserver } from "rxjs";
 import { RouteResolution, RouteResolutionType } from "./route-resolution";
 
+interface Disposable {
+  dispose(): void;
+}
 export class Outlet<T> {
-  constructor(private navigator: Navigator<T>) {}
+  constructor(
+    private navigator: Navigator<T>,
+    private renderView: (template: T, target: RenderTarget) => Disposable
+  ) {}
   render(target: RenderTarget) {
-    const views: HTMLDivElement[] = [];
+    const views: Disposable[] = [];
+    const outlet = this;
     const subscr = this.navigator.subscribe({
       next(routeResolution) {
         switch (routeResolution.type) {
@@ -13,19 +20,16 @@ export class Outlet<T> {
             {
               const { index } = routeResolution;
               for (let i = index; i < views.length; i++) {
-                views[i].remove();
+                views[i].dispose();
               }
               views.length = index + 1;
-              const div = document.createElement("div");
-              target.appendChild(div);
-              div.textContent = `[${routeResolution.index}] ${routeResolution.view}`;
-              views[index] = div;
+              views[index] = outlet.renderView(routeResolution.view, target);
             }
             break;
           case RouteResolutionType.Dispose:
             const { index } = routeResolution;
             if (index < views.length) {
-              views[index].remove();
+              views[index].dispose();
             }
             break;
         }
