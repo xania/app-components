@@ -9,6 +9,7 @@ import {
 } from "./route-resolution";
 import { PathTemplate } from "./path-template";
 import { pathMatcher } from "./path-matcher";
+import { UrlHelper } from "./url-helper";
 export type PathMatcher = (path: router.Path) => PathMatchResult | null;
 
 export function route<T>(
@@ -30,13 +31,13 @@ export interface Route<T> {
   match(path: string[]): PathMatchResult;
   view: View<T> | PromiseLike<View<T>>;
 }
-type ViewFn<T> = () => T | PromiseLike<T>;
+type ViewFn<T> = (routeContext: RouteContext) => T | PromiseLike<T>;
 type ViewComponent<T> = {
   render(): T | PromiseLike<T>;
   routes?: RouteInput<T>[];
 };
 interface ViewConstructor<TView> {
-  new (): ViewComponent<TView>;
+  new (context: RouteContext): ViewComponent<TView>;
 }
 
 type View<T> = T | ViewComponent<T> | ViewConstructor<T> | ViewFn<T>;
@@ -77,12 +78,12 @@ function createRouteResolver<T>(
       if (
         next &&
         next.type === RouteResolutionType.Append &&
-        next.context.path.length > 0 &&
-        arrayStartsWith(path, next.context.path)
+        next.context.url.path.length > 0 &&
+        arrayStartsWith(path, next.context.url.path)
       ) {
         return {
           ...next,
-          remainingPath: path.slice(next.context.path.length),
+          remainingPath: path.slice(next.context.url.path.length),
           type: RouteResolutionType.Unchanged,
         };
       }
@@ -92,16 +93,16 @@ function createRouteResolver<T>(
         if (matchResult) {
           const { segment, params } = matchResult;
           const { view } = route;
-          const context: RouteContext = {
+          const routeContext: RouteContext = {
             params,
-            path: segment,
+            url: new UrlHelper(segment),
           };
           const remainingPath = path.slice(segment.length);
-          return asRouteView<T>(view).then((routeView) => {
+          return asRouteView<T>(view, routeContext).then((routeView) => {
             return {
               view: routeView.view,
               resolve: createRouteResolver(routeView.routes),
-              context,
+              context: routeContext,
               remainingPath,
               index,
               type: RouteResolutionType.Append,
@@ -118,17 +119,18 @@ function createRouteResolver<T>(
   };
 
   function asRouteView<T>(
-    view: View<T> | PromiseLike<View<T>>
+    view: View<T> | PromiseLike<View<T>>,
+    routeContext: RouteContext
   ): PromiseLike<RouteView<T>> {
     if (isPromiseLike(view)) {
-      return view.then(asRouteView);
+      return view.then((x) => asRouteView(x, routeContext));
     } else if (view instanceof Function) {
       try {
         return Promise.resolve({
-          view: view.apply(null, []),
+          view: view.apply(null, [routeContext]),
         } as RouteView<T>);
       } catch {
-        const component = Reflect.construct(view, []);
+        const component = Reflect.construct(view, [routeContext]);
         return mapPromise(component.render(), (x) => ({
           view: x,
           routes: component.routes,

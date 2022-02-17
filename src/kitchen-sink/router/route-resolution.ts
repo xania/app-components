@@ -1,3 +1,5 @@
+import { UrlHelper } from "./url-helper";
+
 export enum RouteResolutionType {
   Append,
   Replace,
@@ -29,7 +31,7 @@ export interface RouterDisposeResolution {
 export type Path = string[];
 
 export interface RouteContext {
-  path: Path;
+  url: UrlHelper;
   params: router.RouteParams;
 }
 

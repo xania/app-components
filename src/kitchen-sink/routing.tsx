@@ -1,6 +1,7 @@
 import { jsx } from "@xania/view";
 import { createRouter, RouteInput } from "./router";
 import { Outlet } from "./router/outlet";
+import { RouteContext } from "./router/route-resolution";
 
 class MyComponent {
   render() {
@@ -21,9 +22,8 @@ const routes: RouteInput<string>[] = [
   { path: "promise", view: Promise.resolve("promise route") },
 ];
 
-export function Routing() {
-  const router = createRouter(routes, ["routing"]);
-  console.log(location.pathname.split("/").filter((e) => !!e));
+export function Routing(routeContext: RouteContext) {
+  const router = createRouter(routes, routeContext.url.path);
   router.nav(location.pathname.split("/").filter((e) => !!e));
 
   const outlet = new Outlet<string>(router, (element, target) => {

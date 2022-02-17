@@ -60,7 +60,6 @@ const router = createRouter(
 
 const outlet = new Outlet(router, (element, target) => {
   const result = render(element, target);
-  console.log(result);
   return {
     dispose() {
       for (const r of result) {
