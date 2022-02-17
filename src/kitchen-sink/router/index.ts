@@ -63,7 +63,7 @@ function createRouteResolver<T>(
   if (!routeInputs) return null;
 
   let nextPromise: PromiseLike<RouteResolution<T>> = Promise.resolve(null);
-  const routes = routeInputs.map((x) => route(x.path, x.view));
+  const routes = routeInputs.map((x) => compileRoute(x));
 
   return (path: Path, index?: number): PromiseLike<RouteResolution<T>> => {
     if (path.length === 0) {
@@ -109,7 +109,11 @@ function createRouteResolver<T>(
           });
         }
       }
-      return null;
+
+      return {
+        type: RouteResolutionType.Dispose,
+        index,
+      };
     }));
   };
 
@@ -168,7 +172,7 @@ export function createRouter<T>(routes: RouteInput<T>[], basePath: Path = []) {
   return {
     nav(path: string | Path) {
       if (Array.isArray(path)) subject.next(path);
-      else subject.next(path.split("/"));
+      else subject.next(path.split("/").filter((e) => !!e));
     },
     subscribe: entries.subscribe.bind(entries),
   } as {
@@ -199,7 +203,46 @@ interface RouteView<T> {
   routes?: RouteInput<T>[];
 }
 
-export interface RouteInput<T> {
-  path: string | Path;
+type PathInput = string | Path;
+
+interface RouteDescriptor<T> {
+  path: PathInput;
   view: View<T> | PromiseLike<View<T>>;
+}
+
+function isRouteDescriptor<T>(
+  routeInput: RouteInput<T>
+): routeInput is RouteDescriptor<T> {
+  return routeInput && "path" in routeInput;
+}
+
+type RouteTuple<T> = [path: PathInput, view: View<T>];
+
+export type RouteInput<T> = Route<T> | RouteDescriptor<T> | RouteTuple<T>;
+
+function compileRoute<T>(routeInput: RouteInput<T>): Route<T> {
+  if (isRouteDescriptor(routeInput)) {
+    const matcher = pathMatcher(routeInput.path);
+    return {
+      match: matcher,
+      view: routeInput.view,
+    };
+  } else if (Array.isArray(routeInput)) {
+    const matcher = pathMatcher(routeInput[0]);
+    return {
+      match: matcher,
+      view: routeInput[1],
+    };
+  } else {
+    return routeInput;
+  }
+}
+
+export function fallback<TView>(view: Route<TView>["view"]): Route<TView> {
+  return {
+    match(path: router.Path) {
+      return { segment: path, params: {} };
+    },
+    view,
+  };
 }
