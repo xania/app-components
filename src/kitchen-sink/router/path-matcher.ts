@@ -1,5 +1,5 @@
-import { PathMatcher } from "../router";
 import { compilePathTemplate, PathTemplate } from "./path-template";
+import { PathMatcher } from "./types";
 
 export function pathMatcher(
   pathTemplate: string | PathMatcher | PathTemplate

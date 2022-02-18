@@ -1,5 +1,5 @@
 import { RenderTarget } from "@xania/view";
-import { NextObserver } from "rxjs";
+import { Subscribable } from "rxjs";
 import { RouteResolution, RouteResolutionType } from "./route-resolution";
 
 interface Disposable {
@@ -7,13 +7,13 @@ interface Disposable {
 }
 export class Outlet<T> {
   constructor(
-    private navigator: Navigator<T>,
+    private router: Subscribable<RouteResolution<T>>,
     private renderView: (template: T, target: RenderTarget) => Disposable
   ) {}
   render(target: RenderTarget) {
     const views: Disposable[] = [];
     const outlet = this;
-    const subscr = this.navigator.subscribe({
+    const subscr = this.router.subscribe({
       next(routeResolution) {
         const routeIndex = routeResolution.index;
         switch (routeResolution.type) {
@@ -45,8 +45,4 @@ export class Outlet<T> {
       },
     };
   }
-}
-
-interface Navigator<T> {
-  subscribe(observer: NextObserver<RouteResolution<T>>);
 }

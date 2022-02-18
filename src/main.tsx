@@ -39,36 +39,35 @@ import { Routing } from "./kitchen-sink/routing";
 />; */
 }
 
-const router = createRouter(
-  [
-    ["benchmark", Benchmark],
-    ["renderer", RendererDemo],
-    ["routing", Routing],
-    ["camera", CameraComponent],
-    ["receipts", Receipts],
-    fallback((context) => (
-      <CssModule classes={style}>
-        <div class="section">
-          <div style="color: gray; font-size: 100px;">404</div>
-          <div style="color: white">/{context.url.path.join("/")}</div>
-        </div>
-      </CssModule>
-    )),
-  ],
-  []
-);
+const router = createRouter([
+  ["benchmark", Benchmark],
+  ["renderer", RendererDemo],
+  ["routing", Routing],
+  ["camera", CameraComponent],
+  ["receipts", Receipts],
+  fallback((context) => (
+    <CssModule classes={style}>
+      <div class="section">
+        <div style="color: gray; font-size: 100px;">404</div>
+        <div style="color: white">/{context.path.join("/")}</div>
+      </div>
+    </CssModule>
+  )),
+]);
+router.next(location.pathname);
 
-const outlet = new Outlet(router, (element, target) => {
-  const result = render(element, target);
-  return {
-    dispose() {
-      for (const r of result) {
-        if (r && "remove" in r && r["remove"]) {
-          r["remove"]();
+render(<App />, document.body);
+
+function App() {
+  const outlet = new Outlet(router, (element, target) => {
+    const result = render(element, target);
+    return {
+      dispose() {
+        for (const r of result) {
+          r.remove();
         }
-      }
-    },
-  };
-});
-outlet.render(document.body);
-router.nav(location.pathname);
+      },
+    };
+  });
+  return outlet;
+}

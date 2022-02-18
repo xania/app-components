@@ -1,4 +1,4 @@
-import { UrlHelper } from "./url-helper";
+import { RouteContext } from "./types";
 
 export enum RouteResolutionType {
   Append,
@@ -10,15 +10,15 @@ export enum RouteResolutionType {
 export interface RouteAppendResolution<T> {
   type: RouteResolutionType.Append;
   view: T;
-  context: RouteContext;
+  context: RouteContext<T>;
   resolve?: RouteResolver<T>;
   remainingPath: Path;
   index: number;
 }
 
-export interface RouteUnchangedResolution {
+export interface RouteUnchangedResolution<T> {
   type: RouteResolutionType.Unchanged;
-  context: RouteContext;
+  context: RouteContext<T>;
   remainingPath: Path;
   index: number;
 }
@@ -30,11 +30,6 @@ export interface RouterDisposeResolution {
 
 export type Path = string[];
 
-export interface RouteContext {
-  url: UrlHelper;
-  params: router.RouteParams;
-}
-
 export type RouteResolver<T> = (
   path: Path,
   index: number
@@ -43,4 +38,4 @@ export type RouteResolver<T> = (
 export type RouteResolution<T> =
   | RouteAppendResolution<T>
   | RouterDisposeResolution
-  | RouteUnchangedResolution;
+  | RouteUnchangedResolution<T>;

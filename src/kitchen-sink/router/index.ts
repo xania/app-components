@@ -5,12 +5,20 @@ import {
   RouteResolver,
   RouteResolution,
   Path,
-  RouteContext,
 } from "./route-resolution";
 import { PathTemplate } from "./path-template";
 import { pathMatcher } from "./path-matcher";
-import { UrlHelper } from "./url-helper";
-export type PathMatcher = (path: router.Path) => PathMatchResult | null;
+import {
+  PathMatcher,
+  Route,
+  RouteContext,
+  RouteDescriptor,
+  RouteInput,
+  Router,
+  View,
+  ViewComponent,
+} from "./types";
+import { Observer } from "rxjs";
 
 export function route<T>(
   path: string | PathMatcher | PathTemplate,
@@ -23,35 +31,6 @@ export function route<T>(
   };
 }
 
-interface PathMatchResult {
-  segment: router.Path;
-  params: router.RouteParams;
-}
-export interface Route<T> {
-  match(path: string[]): PathMatchResult;
-  view: View<T> | PromiseLike<View<T>>;
-}
-type ViewFn<T> = (routeContext: RouteContext) => T | PromiseLike<T>;
-type ViewComponent<T> = {
-  render(): T | PromiseLike<T>;
-  routes?: RouteInput<T>[];
-};
-interface ViewConstructor<TView> {
-  new (context: RouteContext): ViewComponent<TView>;
-}
-
-type View<T> = T | ViewComponent<T> | ViewConstructor<T> | ViewFn<T>;
-
-// type PathEntry<T> = {
-//   remainingPath: Path;
-//   resolution: RouteResolution<T> | null;
-//   resolve: RouteResolver<T>;
-// };
-
-// type ViewResolution<T> = ViewResolved<T> | null;
-
-/////////////////////////////////////////////////////////////////////
-
 export function isPromiseLike<T>(
   x: View<T> | PromiseLike<View<T>>
 ): x is PromiseLike<View<T>> {
@@ -59,7 +38,8 @@ export function isPromiseLike<T>(
 }
 
 function createRouteResolver<T>(
-  routeInputs: RouteInput<T>[]
+  routeInputs: RouteInput<T>[],
+  router: Router<T>
 ): RouteResolver<T> {
   if (!routeInputs) return null;
 
@@ -78,12 +58,12 @@ function createRouteResolver<T>(
       if (
         next &&
         next.type === RouteResolutionType.Append &&
-        next.context.url.path.length > 0 &&
-        arrayStartsWith(path, next.context.url.path)
+        next.context.path.length > 0 &&
+        arrayStartsWith(path, next.context.path)
       ) {
         return {
           ...next,
-          remainingPath: path.slice(next.context.url.path.length),
+          remainingPath: path.slice(next.context.path.length),
           type: RouteResolutionType.Unchanged,
         };
       }
@@ -93,15 +73,20 @@ function createRouteResolver<T>(
         if (matchResult) {
           const { segment, params } = matchResult;
           const { view } = route;
-          const routeContext: RouteContext = {
+          const routeContext: RouteContext<T> = {
             params,
-            url: new UrlHelper(segment),
+            path: segment,
+            childRouter(routes) {
+              const child = createRouter(routes);
+              child.next(remainingPath);
+              return child;
+            },
           };
           const remainingPath = path.slice(segment.length);
           return asRouteView<T>(view, routeContext).then((routeView) => {
             return {
               view: routeView.view,
-              resolve: createRouteResolver(routeView.routes),
+              resolve: createRouteResolver(routeView.routes, router),
               context: routeContext,
               remainingPath,
               index,
@@ -120,7 +105,7 @@ function createRouteResolver<T>(
 
   function asRouteView<T>(
     view: View<T> | PromiseLike<View<T>>,
-    routeContext: RouteContext
+    routeContext: RouteContext<T>
   ): PromiseLike<RouteView<T>> {
     if (isPromiseLike(view)) {
       return view.then((x) => asRouteView(x, routeContext));
@@ -153,33 +138,29 @@ export function isViewComponent<T>(view: View<T>): view is ViewComponent<T> {
   return view && view["render"] instanceof Function;
 }
 
-export function createRouter<T>(routes: RouteInput<T>[], basePath: Path = []) {
+export function createRouter<T>(routes: RouteInput<T>[]) {
   const subject = new Rx.ReplaySubject<Path>();
 
-  const rootResolve = createRouteResolver(routes);
-
-  const entries: Rx.Observable<RouteResolution<T>> = subject.pipe(
-    Ro.map((x) =>
-      arrayStartsWith(x, basePath) ? x.slice(basePath.length) : []
-    ),
-    Ro.switchMap((remainingPath) => rootResolve(remainingPath, 0)),
-    Ro.filter((rr) => !!rr),
-    Ro.expand((rr) =>
-      rr && "resolve" in rr && rr.resolve instanceof Function
-        ? rr.resolve(rr.remainingPath, rr.index + 1)
-        : Rx.EMPTY
-    )
-  );
-
   return {
-    nav(path: string | Path) {
+    next(path: string | Path) {
       if (Array.isArray(path)) subject.next(path);
       else subject.next(path.split("/").filter((e) => !!e));
     },
-    subscribe: entries.subscribe.bind(entries),
-  } as {
-    nav: (path: string | Path) => void;
-    subscribe: typeof entries.subscribe;
+
+    subscribe(observer: Observer<RouteResolution<T>>) {
+      const rootResolve = createRouteResolver(routes, this);
+
+      const entries: Rx.Observable<RouteResolution<T>> = subject.pipe(
+        Ro.switchMap((remainingPath) => rootResolve(remainingPath, 0)),
+        Ro.filter((rr) => !!rr),
+        Ro.expand((rr) =>
+          rr && "resolve" in rr && rr.resolve instanceof Function
+            ? rr.resolve(rr.remainingPath, rr.index + 1)
+            : Rx.EMPTY
+        )
+      );
+      return entries.subscribe(observer);
+    },
   };
 }
 
@@ -205,22 +186,11 @@ interface RouteView<T> {
   routes?: RouteInput<T>[];
 }
 
-type PathInput = string | Path;
-
-interface RouteDescriptor<T> {
-  path: PathInput;
-  view: View<T> | PromiseLike<View<T>>;
-}
-
 function isRouteDescriptor<T>(
   routeInput: RouteInput<T>
 ): routeInput is RouteDescriptor<T> {
   return routeInput && "path" in routeInput;
 }
-
-type RouteTuple<T> = [path: PathInput, view: View<T>];
-
-export type RouteInput<T> = Route<T> | RouteDescriptor<T> | RouteTuple<T>;
 
 function compileRoute<T>(routeInput: RouteInput<T>): Route<T> {
   if (isRouteDescriptor(routeInput)) {
@@ -242,9 +212,10 @@ function compileRoute<T>(routeInput: RouteInput<T>): Route<T> {
 
 export function fallback<TView>(view: Route<TView>["view"]): Route<TView> {
   return {
-    match(path: router.Path) {
-      return { segment: path, params: {} };
-    },
+    match: anyRoute,
     view,
   };
 }
+
+export const anyRoute = (path: router.Path) => ({ segment: path });
+export const anyPath = (path: router.Path) => ({ segment: path });

@@ -1,7 +1,6 @@
 import { jsx } from "@xania/view";
-import { createRouter, RouteInput } from "./router";
 import { Outlet } from "./router/outlet";
-import { RouteContext } from "./router/route-resolution";
+import { RouteContext, ViewComponent } from "./router/types";
 
 class MyComponent {
   render() {
@@ -13,49 +12,49 @@ function MyFunction() {
   return "fun route";
 }
 
-const routes: RouteInput<string>[] = [
-  { path: "start", view: "start route" },
-  { path: "module", view: import("./module").then((e) => e.MyModule) },
-  { path: "simple", view: "route a" },
-  { path: "fun", view: MyFunction },
-  { path: "comp", view: MyComponent },
-  { path: "promise", view: Promise.resolve("promise route") },
-];
+export class Routing implements ViewComponent {
+  constructor(private context: RouteContext) {}
 
-export function Routing(routeContext: RouteContext) {
-  const router = createRouter(routes, routeContext.url.path);
-  router.nav(location.pathname.split("/").filter((e) => !!e));
+  render() {
+    const { context } = this;
+    const router = context.childRouter([
+      { path: "start", view: "start route" },
+      { path: "module", view: import("./module").then((e) => e.MyModule) },
+      { path: "simple", view: "route a" },
+      { path: "fun", view: MyFunction },
+      { path: "comp", view: MyComponent },
+      { path: "promise", view: Promise.resolve("promise route") },
+      { path: "params/:id", view: (ctx) => `[ ${ctx.params.id} ]` },
+    ]);
 
-  const outlet = new Outlet<string>(router, (element, target) => {
-    const div = document.createElement("div", {});
-    div.textContent = element;
-    target.appendChild(div);
+    const outlet = new Outlet<string>(router, (element, target) => {
+      const div = document.createElement("div", {});
+      div.textContent = element;
+      target.appendChild(div);
 
-    return {
-      dispose() {
-        div.remove();
-      },
-    };
-  });
+      return {
+        dispose() {
+          div.remove();
+        },
+      };
+    });
 
-  return (
-    <div>
+    return (
       <div>
-        <button click={(_) => router.nav(["routing", "simple"])}>simple</button>
-        <button click={(_) => router.nav(["routing", "module"])}>module</button>
-        <button click={(_) => router.nav(["routing", "module", "child"])}>
-          module child
-        </button>
-        <button click={(_) => router.nav(["routing", "fun"])}>fun</button>
-        <button click={(_) => router.nav(["routing", "comp"])}>
-          component
-        </button>
-        <button click={(_) => router.nav(["routing", "promise"])}>
-          promise
-        </button>
-        <button click={(_) => router.nav([])}>empty</button>
+        <div>
+          <button click={(_) => router.next("simple")}>simple</button>
+          <button click={(_) => router.next("module")}>module</button>
+          <button click={(_) => router.next("module/child")}>
+            module child
+          </button>
+          <button click={(_) => router.next("fun")}>fun</button>
+          <button click={(_) => router.next("comp")}>component</button>
+          <button click={(_) => router.next("promise")}>promise</button>
+          <button click={(_) => router.next("params/123")}>params</button>
+          <button click={(_) => router.next([])}>empty</button>
+        </div>
+        {outlet}
       </div>
-      {outlet}
-    </div>
-  );
+    );
+  }
 }
