@@ -12,9 +12,10 @@ import style from "./style.module.scss";
 // import { Benchmark } from "./kitchen-sink/benchmark";
 // import { RendererDemo } from "./kitchen-sink/renderer";
 // import { Routing } from "./kitchen-sink/routing";
-import { createRouter, fallback } from "./kitchen-sink/router";
+import { fallback } from "./kitchen-sink/router";
 import { Outlet } from "./kitchen-sink/router/outlet";
 import { Routing } from "./kitchen-sink/routing";
+import { createWebRouter } from "./kitchen-sink/router/web-router";
 
 {
   /* <WebApp
@@ -39,7 +40,7 @@ import { Routing } from "./kitchen-sink/routing";
 />; */
 }
 
-const router = createRouter([
+const router = createWebRouter([
   ["benchmark", Benchmark],
   ["renderer", RendererDemo],
   ["routing", Routing],
@@ -50,6 +51,11 @@ const router = createRouter([
       <div class="section">
         <div style="color: gray; font-size: 100px;">404</div>
         <div style="color: white">/{context.path.join("/")}</div>
+        <div>
+          <button click={(_) => router.next("routing")}>routing</button>
+          <button click={(_) => router.next("camera")}>camera</button>
+          <button click={(_) => router.next("receipts")}>receipts</button>
+        </div>
       </div>
     </CssModule>
   )),

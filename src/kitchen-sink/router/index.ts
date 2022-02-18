@@ -19,7 +19,7 @@ import {
   View,
   ViewComponent,
 } from "./types";
-import { Observer } from "rxjs";
+import { NextObserver } from "rxjs";
 
 export function route<T>(
   path: string | PathMatcher | PathTemplate,
@@ -138,7 +138,7 @@ export function createRouter<T>(routes: RouteInput<T>[]) {
       else subject.next(path.split("/").filter((e) => !!e));
     },
 
-    subscribe(observer: Observer<RouteResolution<T>>) {
+    subscribe(observer: NextObserver<RouteResolution<T>>) {
       const rootResolve = createRouteResolver(routes, this);
 
       const entries: Rx.Observable<RouteResolution<T>> = subject.pipe(
