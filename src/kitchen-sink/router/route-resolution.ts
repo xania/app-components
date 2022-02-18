@@ -1,14 +1,14 @@
 import { RouteContext } from "./types";
 
 export enum RouteResolutionType {
-  Append,
+  Found,
   Replace,
-  Dispose,
+  End,
   Unchanged,
 }
 
-export interface RouteAppendResolution<T> {
-  type: RouteResolutionType.Append;
+export interface RouteFoundResolution<T> {
+  type: RouteResolutionType.Found;
   view: T;
   context: RouteContext<T>;
   resolve?: RouteResolver<T>;
@@ -23,8 +23,9 @@ export interface RouteUnchangedResolution<T> {
   index: number;
 }
 
-export interface RouterDisposeResolution {
-  type: RouteResolutionType.Dispose;
+export interface RouteEndResolution {
+  type: RouteResolutionType.End;
+  remainingPath: Path;
   index: number;
 }
 
@@ -36,6 +37,6 @@ export type RouteResolver<T> = (
 ) => PromiseLike<RouteResolution<T>>;
 
 export type RouteResolution<T> =
-  | RouteAppendResolution<T>
-  | RouterDisposeResolution
+  | RouteFoundResolution<T>
+  | RouteEndResolution
   | RouteUnchangedResolution<T>;

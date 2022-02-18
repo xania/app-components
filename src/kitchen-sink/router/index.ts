@@ -5,6 +5,7 @@ import {
   RouteResolver,
   RouteResolution,
   Path,
+  RouteEndResolution,
 } from "./route-resolution";
 import { PathTemplate } from "./path-template";
 import { pathMatcher } from "./path-matcher";
@@ -47,17 +48,10 @@ function createRouteResolver<T>(
   const routes = routeInputs.map((x) => compileRoute(x));
 
   return (path: Path, index?: number): PromiseLike<RouteResolution<T>> => {
-    if (path.length === 0) {
-      nextPromise = Promise.resolve(null);
-      return Promise.resolve({
-        type: RouteResolutionType.Dispose,
-        index,
-      });
-    }
     return (nextPromise = nextPromise.then((next) => {
       if (
         next &&
-        next.type === RouteResolutionType.Append &&
+        next.type === RouteResolutionType.Found &&
         next.context.path.length > 0 &&
         arrayStartsWith(path, next.context.path)
       ) {
@@ -90,16 +84,13 @@ function createRouteResolver<T>(
               context: routeContext,
               remainingPath,
               index,
-              type: RouteResolutionType.Append,
+              type: RouteResolutionType.Found,
             };
           });
         }
       }
 
-      return {
-        type: RouteResolutionType.Dispose,
-        index,
-      };
+      return routeEnd(path, index);
     }));
   };
 
@@ -153,11 +144,18 @@ export function createRouter<T>(routes: RouteInput<T>[]) {
       const entries: Rx.Observable<RouteResolution<T>> = subject.pipe(
         Ro.switchMap((remainingPath) => rootResolve(remainingPath, 0)),
         Ro.filter((rr) => !!rr),
-        Ro.expand((rr) =>
-          rr && "resolve" in rr && rr.resolve instanceof Function
-            ? rr.resolve(rr.remainingPath, rr.index + 1)
-            : Rx.EMPTY
-        )
+        Ro.expand((prev) => {
+          if (prev.type === RouteResolutionType.Found) {
+            const { remainingPath } = prev;
+            if (remainingPath.length === 0)
+              return Rx.of(routeEnd([], prev.index + 1));
+            if (prev && "resolve" in prev && prev.resolve instanceof Function)
+              return prev.resolve(prev.remainingPath, prev.index + 1);
+            return Rx.of(routeEnd(remainingPath, prev.index + 1));
+          }
+
+          return Rx.EMPTY;
+        })
       );
       return entries.subscribe(observer);
     },
@@ -219,3 +217,11 @@ export function fallback<TView>(view: Route<TView>["view"]): Route<TView> {
 
 export const anyRoute = (path: router.Path) => ({ segment: path });
 export const anyPath = (path: router.Path) => ({ segment: path });
+
+function routeEnd(remainingPath: Path, index: number): RouteEndResolution {
+  return {
+    type: RouteResolutionType.End,
+    remainingPath,
+    index,
+  };
+}

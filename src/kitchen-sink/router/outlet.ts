@@ -17,7 +17,7 @@ export class Outlet<T> {
       next(routeResolution) {
         const routeIndex = routeResolution.index;
         switch (routeResolution.type) {
-          case RouteResolutionType.Append:
+          case RouteResolutionType.Found:
             {
               for (let i = routeIndex; i < views.length; i++) {
                 views[i].dispose();
@@ -29,11 +29,12 @@ export class Outlet<T> {
               );
             }
             break;
-          case RouteResolutionType.Dispose:
+          case RouteResolutionType.End:
             for (let i = routeIndex; i < views.length; i++) {
               views[i].dispose();
             }
             views.length = routeIndex;
+            console.log(routeResolution.remainingPath);
             break;
         }
       },
