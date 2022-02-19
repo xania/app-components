@@ -56,5 +56,11 @@ export function CameraComponent() {
       .catch((err) => {
         console.log("Oops. Something is broken.", err);
       });
+
+    return {
+      dispose() {
+        console.log("stop camera");
+      },
+    };
   }
 }
