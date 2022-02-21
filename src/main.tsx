@@ -1,4 +1,4 @@
-import { CssModule, jsx, render } from "@xania/view";
+import { CssModule, dispose, jsx, render } from "@xania/view";
 import { CameraComponent } from "./jennah/camera";
 import { Receipts } from "./jennah/receipts";
 import { Benchmark } from "./kitchen-sink/benchmark";
@@ -69,9 +69,7 @@ function App() {
     const result = render(element, target);
     return {
       dispose() {
-        for (const r of result) {
-          r.remove();
-        }
+        dispose(result);
       },
     };
   });

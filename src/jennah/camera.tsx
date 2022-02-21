@@ -48,10 +48,11 @@ export function CameraComponent() {
   }
 
   function startCamera() {
-    navigator.mediaDevices
+    const mediaStream = navigator.mediaDevices
       .getUserMedia(constraints)
       .then((stream) => {
         videoElt.srcObject = stream;
+        return stream;
       })
       .catch((err) => {
         console.log("Oops. Something is broken.", err);
@@ -59,7 +60,15 @@ export function CameraComponent() {
 
     return {
       dispose() {
-        console.log("stop camera");
+        mediaStream.then((stream) => {
+          if (stream) {
+            stream.getTracks().forEach(function (track) {
+              if (track.readyState == "live") {
+                track.stop();
+              }
+            });
+          }
+        });
       },
     };
   }
