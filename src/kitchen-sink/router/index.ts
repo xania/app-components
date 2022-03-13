@@ -134,6 +134,7 @@ export function createRouter<T>(routes: RouteInput<T>[]) {
 
   return {
     next(path: string | Path) {
+      console.log("next path", path);
       if (Array.isArray(path)) subject.next(path);
       else subject.next(path.split("/").filter((e) => !!e));
     },
@@ -142,9 +143,11 @@ export function createRouter<T>(routes: RouteInput<T>[]) {
       const rootResolve = createRouteResolver(routes, this);
 
       const entries: Rx.Observable<RouteResolution<T>> = subject.pipe(
-        Ro.switchMap((remainingPath) => rootResolve(remainingPath, 0)),
+        Ro.tap((e) => console.log("entry", e)),
+        Ro.mergeMap((remainingPath) => rootResolve(remainingPath, 0)),
         Ro.filter((rr) => !!rr),
         Ro.expand((prev) => {
+          console.log("expand", prev);
           if (prev.type === RouteResolutionType.Found) {
             const { remainingPath } = prev;
             if (remainingPath.length === 0)

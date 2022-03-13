@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Pacifico&display=swap");
+
+.qrcode {
+  text-align: center;
+  padding: 15px;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 150px;
+  margin: 5px;
+  h3 {
+    margin: 10px 0 0 0;
+    padding: 0;
+    line-height: 20px;
+    font-family: "Courgette";
+    font-size: 20px;
+
+    .hart {
+      position: absolute;
+      background-image: url(./hart.svg);
+      width: 26px;
+      height: 26px;
+      background-size: contain;
+      margin-left: -22px;
+      margin-top: -16px;
+    }
+  }
+  div {
+    display: block;
+    height: 124px;
+    overflow: hidden;
+    canvas {
+      width: 120px;
+      height: 120px;
+      border-radius: 4px;
+    }
+  }
+}
+
+.matrix {
+  border-left: 1px solid red;
+  border-top: 1px solid red;
+}
+
+.cutblock {
+  display: inline-block;
+  border-right: 1px solid red;
+  border-bottom: 1px solid red;
+}

@@ -9,8 +9,6 @@ export function createWebRouter<T>(routes: RouteInput<T>[]): Router<T> {
 
   return {
     next(path) {
-      router.next(path);
-
       const url = Array.isArray(path) ? path.join("/") : path;
       if (location.pathname !== "/" + url) {
         console.log("push state", url);

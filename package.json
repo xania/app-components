@@ -27,8 +27,11 @@
   "dependencies": {
     "@azure/identity": "^2.0.1",
     "@azure/storage-blob": "^12.8.0",
+    "@material/list": "^13.0.0",
     "@xania/router": "file:libs/router",
     "@xania/view": "file:libs/view",
+    "qrcodejs": "^1.0.0",
+    "qrious": "^4.0.2",
     "rxjs": "7.5.2"
   }
 }

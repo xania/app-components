@@ -28,7 +28,7 @@ export class Routing implements ViewComponent {
     ]);
 
     const outlet = new Outlet<string>(router, (element, target) => {
-      const div = document.createElement("div", {});
+      const div = document.createElement("div");
       div.textContent = element;
       target.appendChild(div);
 

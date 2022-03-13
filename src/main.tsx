@@ -46,6 +46,11 @@ const router = createWebRouter([
   ["routing", Routing],
   ["camera", CameraComponent],
   ["receipts", Receipts],
+  ["jennah/menu", import("./jennah/menu/menu-card").then((e) => e.MenuCard)],
+  [
+    "jennah/qrcode-matrix",
+    import("./jennah/menu/qr-matrix").then((e) => e.QRMatrix),
+  ],
   fallback((context) => (
     <CssModule classes={style}>
       <div class="section">
