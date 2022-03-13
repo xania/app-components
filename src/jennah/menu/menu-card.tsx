@@ -31,36 +31,54 @@ export function MenuCard() {
           <Section title="Starters">
             <ProductList products={products.starters} {...events} />
           </Section>
-          <Section title="Broodjes">
-            <ProductList products={products.sandwiches} {...events} />
-          </Section>
-          <Section title="Grill">
-            <ProductList products={products.grill} {...events} />
-          </Section>
-        </div>
-        <div>
           <Section title="Tajine">
             <ProductList products={products.tajines} {...events} />
+            <hr />
+            <p class={styles.section__footer}>
+              Tajine worden geserveerd met bruin of wit brood
+            </p>
           </Section>
           <Section title="Couscous">
             <ProductList products={[...products.couscous]} {...events} />
+            <hr />
+            <p class={styles.section__footer}>
+              Traditioneel bereid couscous elke vrijdag en weekend
+            </p>
+          </Section>
+        </div>
+        <div>
+          <Section title="Grill">
+            <ProductList products={products.grill} {...events} />
+            <hr />
+            <p class={styles.section__footer}>
+              Alle schotels worden geserveerd met salade, huis saus en keuze uit
+              rijst of friet
+            </p>
           </Section>
           <Section title="Burgers">
             <ProductList products={products.burgers} {...events} />
+            <hr />
+            <p class={styles.section__footer}>
+              Al onze burgers worden geserveerd met friet
+            </p>
           </Section>
         </div>
       </div>
       <div style="page-break-inside:avoid;page-break-after:always"></div>{" "}
       <div class={styles["menu-card"]}>
         <div>
+          <Section title="Broodjes">
+            <ProductList products={products.sandwiches} {...events} />
+            <hr />
+            <p class={styles.section__footer}>
+              Al onze broodjes worden geserveerd met salade, saus en friet
+            </p>
+          </Section>
           <Section title="Pasta">
             <ProductList products={products.pasta} {...events} />
           </Section>
           <Section title="Salades">
             <ProductList products={products.salads} {...events} />
-          </Section>
-          <Section title="Panini">
-            <ProductList products={products.paninis} {...events} />
           </Section>
           <Section title="Kindermenu">
             <ProductList
@@ -91,6 +109,9 @@ export function MenuCard() {
           </Section>
         </div>
         <div>
+          <Section title="Panini">
+            <ProductList products={products.paninis} {...events} />
+          </Section>
           <Section title="Dranken">
             <ProductList
               products={[

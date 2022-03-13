@@ -55,6 +55,7 @@
   text-align: center;
   padding: 20px 0 0 0;
   margin-top: 20px;
+
   h1 {
     font-family: Courgette;
     font-size: 70px;
@@ -86,7 +87,7 @@
 }
 
 .menu-card {
-  padding: 30px 30px 0 0;
+  padding: 10px 30px 0 0;
   display: grid;
   grid-template:
     "b c"
@@ -95,15 +96,26 @@
   .section {
     padding: 0 20px;
 
+    hr {
+      border-color: #b6620d;
+    }
+
     &__title {
       color: white;
       background-color: #b6620d;
       text-align: center;
       font-family: "Hubballi";
-      line-height: 40px;
-      font-size: 30px;
+      line-height: 30px;
+      font-size: 24px;
       padding: 0;
-      margin: 25px 0 0 0;
+      margin: 10px 0 0 0;
+    }
+
+    &__footer {
+      font-style: italic;
+      padding: 0 20px;
+      margin: 0;
+      color: #b6620d;
     }
 
     .product-list {

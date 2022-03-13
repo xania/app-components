@@ -31,7 +31,7 @@ export const products = {
       title: "Harira",
       price: 4.5,
       options: [],
-      description: "Dadels, stukjes brood en citroen",
+      description: "Dadels en citroen",
     },
     {
       title: "Bissara",
@@ -68,17 +68,17 @@ export const products = {
   sandwiches: [
     {
       title: "Kip (of hete kip)",
-      price: 7,
+      price: 7.5,
       options: [
         option("Heet kip"),
-        choice("Drank", discount(colddrinks, 1)),
+        choice("Frisdrank", discount(colddrinks, 2)),
         choice("Friet", discount([friet, huisfriet], 1)),
       ],
     },
-    { title: "Kefta", price: 7, description: "kalfsgehakt" },
+    { title: "Kefta", price: 7.5, description: "kalfsgehakt" },
     // { title: "Kip tenders (van de grill)", price: 7.5 },
-    { title: "Sossit / Merquez", price: 7.5 },
-    { title: "Garnalen", price: 7.5 },
+    { title: "Sossit / Merquez", price: 8 },
+    { title: "Garnalen", price: 8 },
   ],
   burgers: [
     {
@@ -140,16 +140,33 @@ export const products = {
     { title: "Verse Jus D'orange", price: 5 },
     {
       title: "Ace",
-      description:
-        "Blauwe bessen, Banaan, Aarbei en Frambozen en Jus D'orange ",
+      description: "Blauwe bessen, Banaan, Aarbei, Frambozen en Jus D'orange ",
       price: 5,
     },
   ],
   tajines: [
-    { title: "Tajine kip", price: 13.5 },
-    { title: "Tajine Vlees", price: 14.5 },
-    { title: "Tajine Pilpil", price: 14 },
-    { title: "Tajine Kefta", price: 12 },
+    {
+      title: "Tajine kip",
+      price: 13.5,
+      description:
+        "Half kip of twee kippendijen met gekookt ei olijven en geroosterde amandelen",
+    },
+    {
+      title: "Tajine Vlees",
+      price: 14.5,
+      description:
+        "Malse kalfsvlees met barqooq (pruimen) of groente (wordels en groene erwten)",
+    },
+    {
+      title: "Tajine Pilpil",
+      price: 14,
+      description: "Pittige tajine garnalen in olijfolie",
+    },
+    {
+      title: "Tajine Kefta",
+      price: 12,
+      description: "Gehaktballetjes in tomaten saus en ei",
+    },
   ],
   couscous: [
     { title: "Vegie", price: 11 },
