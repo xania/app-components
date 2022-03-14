@@ -177,7 +177,11 @@ export const products = {
     {
       title: "Royaal",
       price: 16.5,
-      description: "met vlees en stukje kip, uien, rozijnen en kikkerwerten",
+      description: "met vlees of stukje kip met zoete uien en rozijnen",
+    },
+    {
+      title: "Voor twee personen",
+      price: 21,
     },
   ],
   desserts: [
