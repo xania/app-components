@@ -1,5 +1,5 @@
 import { jsx } from "@xania/view";
-import * as QRious from "qrious";
+import QRious from "qrious";
 import styles from "./qr-matrix.module.scss";
 import "./qr-matrix.scss";
 
