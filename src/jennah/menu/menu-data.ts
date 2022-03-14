@@ -75,6 +75,7 @@ export const products = {
         choice("Friet", discount([friet, huisfriet], 1)),
       ],
     },
+    { title: "Gegrilde kipfilet", price: 8 },
     { title: "Kefta", price: 7.5, description: "kalfsgehakt" },
     // { title: "Kip tenders (van de grill)", price: 7.5 },
     { title: "Sossit / Merquez", price: 8 },
@@ -115,7 +116,7 @@ export const products = {
     },
     {
       title: "Ceasar Salade",
-      price: 8,
+      price: 9,
       description: "met kip van de grill",
     },
     { title: "Zalm Salade", price: 10, description: "met zalm van de grill" },
@@ -133,10 +134,11 @@ export const products = {
     { title: "Munt thee (grote pot, 3 a 4p)", price: 5.5 },
   ],
   smoothies: [
+    { title: "Appel / banaan", price: 4.5 },
     { title: "Aardbei", price: 4.5 },
     { title: "Avocado", price: 5 },
-    { title: "Avocado/Banaan", price: 4.5 },
-    { title: "Ananas/Mango", price: 4.5 },
+    { title: "Avocado / banaan", price: 4.5 },
+    { title: "Ananas / mango", price: 4.5 },
     { title: "Verse Jus D'orange", price: 5 },
     {
       title: "Ace",
@@ -159,7 +161,7 @@ export const products = {
     },
     {
       title: "Tajine Pilpil",
-      price: 14,
+      price: 12,
       description: "Pittige tajine garnalen in olijfolie",
     },
     {
@@ -169,7 +171,7 @@ export const products = {
     },
   ],
   couscous: [
-    { title: "Vegie", price: 11 },
+    { title: "Vegetarisch", price: 11 },
     { title: "Kip", price: 13.5 },
     { title: "Vlees", price: 14.5 },
     {
