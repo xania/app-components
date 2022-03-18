@@ -10,14 +10,30 @@ function range(len: number) {
   }
   return arr;
 }
+function randomId() {
+  return btoa(Math.random().toString()).substring(10, 5);
+}
 export function QRMatrix() {
   return (
     <div class={["matrix", styles.matrix]}>
-      {range(60).map((i) => (
-        <div class={styles.cutblock}>
-          <QRCode id={i} />
-        </div>
-      ))}
+      {range(30)
+        .map(randomId)
+        .map((i) => (
+          <>
+            <div class={styles.cutblock}>
+              <QRCode id={i} />
+            </div>
+            <div class={styles.cutblock}>
+              <QRCode id={i} />
+            </div>
+            <div class={styles.cutblock}>
+              <QRCode id={i} />
+            </div>
+            <div class={styles.cutblock}>
+              <QRCode id={i} />
+            </div>
+          </>
+        ))}
     </div>
   );
 }
@@ -40,6 +56,7 @@ function QRCode(props: QRCodeProps) {
         <span class={styles.hart}></span>Menu
       </h3>
       <div>{canvas}</div>
+      <span class={styles.qrcode__id}>{props.id}</span>
     </div>
   );
 }

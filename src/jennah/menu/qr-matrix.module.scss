@@ -3,12 +3,16 @@
 .qrcode {
   text-align: center;
   padding: 15px;
-  border: 2px solid black;
-  border-radius: 10px;
-  width: 150px;
-  margin: 5px;
+  border: 4px #db77146e;
+  border-style: solid;
+  border-radius: 20px;
+  box-sizing: border-box;
+  width: 5cm;
+  height: 5cm;
+  margin: 0.3cm;
+  background-color: white;
   h3 {
-    margin: 10px 0 0 0;
+    margin: 5px 0 0 0;
     padding: 0;
     line-height: 20px;
     font-family: "Courgette";
@@ -20,8 +24,8 @@
       width: 26px;
       height: 26px;
       background-size: contain;
-      margin-left: -22px;
-      margin-top: -16px;
+      margin-left: -24px;
+      margin-top: -10px;
     }
   }
   div {
@@ -34,15 +38,21 @@
       border-radius: 4px;
     }
   }
+
+  &__id {
+    color: rgb(235, 235, 235);
+    font-size: 12px;
+  }
 }
 
 .matrix {
-  border-left: 1px solid red;
-  border-top: 1px solid red;
+  // border-left: 0.01cm solid $cufline;
+  // border-top: 0.01cm solid $cufline;
 }
 
 .cutblock {
   display: inline-block;
-  border-right: 1px solid red;
-  border-bottom: 1px solid red;
+  // border-right: 0.1cm solid $cufline;
+  // border-bottom: 0.1cm solid $cufline;
+  // background-color: #db771421;
 }
