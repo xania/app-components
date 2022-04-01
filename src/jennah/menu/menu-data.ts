@@ -39,6 +39,7 @@ export const products = {
       description: "gereserveerd met brood",
     },
     { title: "Loempia", price: 4 },
+    { title: "Msemmen", price: 3, description: "Marokkaanse pancake" },
     {
       title: "Tortilla",
       price: 5.0,
@@ -129,9 +130,9 @@ export const products = {
     { title: "Koffie Verkeerd", price: 3 },
     { title: "Machiatto", price: 3.5 },
     { title: "Warme Chocomel", price: 3.5 },
-    { title: "Munt thee (glas, 1p)", price: 3.5 },
-    { title: "Munt thee (kleine pot, 2p)", price: 4.5 },
-    { title: "Munt thee (grote pot, 3 a 4p)", price: 5.5 },
+    { title: "Munt thee (glas, 1p)", price: 3 },
+    { title: "Munt thee (kleine pot, 2p)", price: 5.5 },
+    { title: "Munt thee (grote pot, 3 a 4p)", price: 7 },
   ],
   smoothies: [
     { title: "Appel / banaan", price: 4.5 },
