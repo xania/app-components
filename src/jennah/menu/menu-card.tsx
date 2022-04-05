@@ -16,7 +16,6 @@ export function MenuCard() {
           <span class={styles.hart}></span>
           Jennah
           {/* <span class={styles.halal}></span> */}
-          <span class={styles.subtitle}>Restaurant en Cafe</span>
         </h1>
 
         {/* <span class="topbar-wifi">
