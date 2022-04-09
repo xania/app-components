@@ -42,8 +42,8 @@ export const products = {
     { title: "Msemmen", price: 3, description: "Marokkaanse pancake" },
     {
       title: "Tortilla",
-      price: 5.0,
-      description: "spaanse tortilla met aardappelen en eieren",
+      price: 3.5,
+      description: "Spaanse tortilla met aardappelen en eieren",
     },
     // { title: "Nacho's", price: 7.5 },
   ],
@@ -81,6 +81,7 @@ export const products = {
     // { title: "Kip tenders (van de grill)", price: 7.5 },
     { title: "Sossit / Merquez", price: 8 },
     { title: "Garnalen", price: 8 },
+    { title: "Shwa", price: 9 },
   ],
   burgers: [
     {
@@ -224,7 +225,7 @@ function choice(title: string, products: Product[]): ProductChoice {
 
 export interface Product {
   title: string;
-  price: number;
+  price?: number;
   description?: string;
   options?: ProductAddendum[];
 }
