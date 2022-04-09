@@ -16,14 +16,14 @@ function randomId() {
 export function QRMatrix() {
   return (
     <div class={["matrix", styles.matrix]}>
-      {range(30)
+      {range(35)
         .map(randomId)
         .map((i) => (
           <>
             <div class={styles.cutblock}>
               <QRCode id={i} />
             </div>
-            <div class={styles.cutblock}>
+            {/* <div class={styles.cutblock}>
               <QRCode id={i} />
             </div>
             <div class={styles.cutblock}>
@@ -31,7 +31,7 @@ export function QRMatrix() {
             </div>
             <div class={styles.cutblock}>
               <QRCode id={i} />
-            </div>
+            </div> */}
           </>
         ))}
     </div>
@@ -47,6 +47,7 @@ function QRCode(props: QRCodeProps) {
   var qr = new QRious({
     element: canvas,
     value: "https://www.app-components.com/jennah/menu/" + props.id,
+    size: 500,
   });
   qr.color = "red";
 
@@ -56,7 +57,6 @@ function QRCode(props: QRCodeProps) {
         <span class={styles.hart}></span>Menu
       </h3>
       <div>{canvas}</div>
-      <span class={styles.qrcode__id}>{props.id}</span>
     </div>
   );
 }

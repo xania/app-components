@@ -23,7 +23,9 @@ function TopBar(props: TopBarOptions) {
 
 export function RamadanMenuCard() {
   const events = {
-    onSelect() {},
+    onSelect(p) {
+      console.log(p);
+    },
   };
   return (
     <>
@@ -91,9 +93,9 @@ export function RamadanMenuCard() {
                   description: "6 kip nuggets met friet",
                 },
                 {
-                  title: "Kaassoufle menu",
+                  title: "Kaassouffle menu",
                   price: 7,
-                  description: "1 kipfilet van de grill met friet",
+                  description: "2 kaassouffleetjes met friet",
                 },
                 {
                   title: "Kinder kip sate menu",
@@ -104,6 +106,11 @@ export function RamadanMenuCard() {
                   title: "Kinder kipfilet menu",
                   price: 7,
                   description: "1 kipfilet van de grill met friet",
+                },
+                {
+                  title: "Kinder burger menu",
+                  price: 7,
+                  description: "klein burger met friet",
                 },
               ]}
               {...events}
