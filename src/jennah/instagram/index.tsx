@@ -25,7 +25,17 @@ export function InstagramComponent() {
 
       var waterImg = new Image();
       waterImg.onload = function () {
-        context.drawImage(waterImg, 0, img.height - 300, 480, 280);
+        const min = Math.min(img.width, img.height);
+        const waterWidth = Math.floor(min * 1.2);
+        const waterHeight = Math.floor(min * 0.7);
+
+        context.drawImage(
+          waterImg,
+          0,
+          img.height - waterHeight,
+          waterWidth,
+          waterHeight
+        );
       };
       waterImg.src = watermark;
     };
