@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 492.692 281.567" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <style bx:fonts="Courgette">@import url(https://fonts.googleapis.com/css2?family=Courgette%3Aital%2Cwght%400%2C400&amp;display=swap);</style>
+  </defs>
+  <g fill="#db6414" transform="matrix(0.251289, 0, 0, 0.279571, 8.722787, 188.140793)" style="">
+    <path opacity="NaN" d="m118,54c17,5 23,-51 50,-50c27,1 46.03488,25.36047 50,58c3.96512,32.63953 2.16279,52.54651 -4,76c-6.16279,23.45349 -21,41 -29,17c-8,-24 29,-71 -3,-102c-32,-31 -40,60 -61,45c-21,-15 -64,-41 -84,-19c-20,22 3,49 48,73c45,24 87,25 80,54c-7,29 -30.39535,12.32558 -69,-8c-38.60465,-20.32558 -51.80233,-28.38372 -78,-55c-26.19767,-26.61628 -22,-77 9,-98c38,-29 74,4 91,9z" id="svg_3" style="fill: rgba(219, 100, 20, 0.73); paint-order: stroke; stroke-width: 22.8643px; stroke-opacity: 0.71;"/>
+  </g>
+  <path d="M 38.214 24.361 L 38.804 177.792 L 37.624 177.792 L 38.214 24.361 Z" style="stroke: rgba(219, 100, 20, 0); fill: rgb(219, 100, 20);" bx:shape="triangle 37.624 24.361 1.18 153.431 0.5 0 1@5a6b8117"/>
+  <path d="M 35.786 305.941 L 36.696 483.648 L 34.875 483.648 L 35.786 305.941 Z" style="stroke: rgba(219, 100, 20, 0.33); fill: rgb(219, 100, 20);" transform="matrix(0, 1, -1, 0, 738.09082, 205.658905)" bx:shape="triangle 34.875 305.941 1.821 177.707 0.5 0 1@c0bb35da"/>
+  <text style="fill: rgb(89, 47, 18); font-family: Courgette; font-size: 57px; stroke-width: 9px; white-space: pre;" x="66.18" y="256.959">Jennah</text>
+</svg>
