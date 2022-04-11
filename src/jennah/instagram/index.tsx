@@ -1,6 +1,6 @@
 import { jsx } from "@xania/view";
 import { Camera, createHtmlElement } from "../../camera";
-import watermark from "./watermark@10x.png";
+import watermark from "./watermark.svg";
 
 export function InstagramComponent() {
   const canvasElt = createHtmlElement("canvas");
