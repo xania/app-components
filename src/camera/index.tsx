@@ -9,7 +9,6 @@ interface CameraProps {
 }
 
 export function Camera(props: CameraProps) {
-  console.log(props);
   const videoElt = createHtmlElement("video");
   videoElt.id = "camera--view";
   videoElt.autoplay = true;

@@ -4,35 +4,37 @@ import watermark from "./watermark.svg";
 
 export function InstagramComponent() {
   const canvasElt = createHtmlElement("canvas");
-  async function onCapture(
-    source: CanvasImageSource,
-    width: number,
-    height: number
-  ) {
-    canvasElt.style.display = "block";
-    canvasElt.width = width;
-    canvasElt.height = height;
-
-    const context = canvasElt.getContext("2d");
-    context.drawImage(source, 0, 0, width, height);
-
-    var img = new Image();
-    img.onload = function () {
-      context.drawImage(img, 0, height - 280, 480, 280);
-    };
-    img.src = watermark;
-  }
+  canvasElt.style.display = "block";
 
   function onDownload() {
     var dataUrl = canvasElt.toDataURL("image/png");
     var link = document.createElement("a");
-    link.download = "my-image.png";
-    link.href = dataUrl.replace("image/png", "image/octet-stream");
+    link.download = "jennah-instagram.png";
+    link.href = dataUrl; // .replace("image/png", "image/octet-stream");
     link.click();
+  }
+
+  function handleFiles(e) {
+    var img = new Image();
+    img.onload = function () {
+      canvasElt.width = img.width;
+      canvasElt.height = img.height;
+
+      const context = canvasElt.getContext("2d");
+      context.drawImage(img, 0, 0);
+
+      var waterImg = new Image();
+      waterImg.onload = function () {
+        context.drawImage(waterImg, 0, img.height - 300, 480, 280);
+      };
+      waterImg.src = watermark;
+    };
+    img.src = URL.createObjectURL(e.event.target.files[0]);
   }
   return (
     <div>
-      <Camera onCapture={onCapture} width={400} height={400} />
+      <input type="file" change={handleFiles} />
+      {/* <Camera onCapture={onCapture} width={400} height={400} /> */}
       {canvasElt}
       <button click={onDownload}>download</button>
     </div>
