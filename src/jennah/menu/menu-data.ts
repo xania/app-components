@@ -29,21 +29,22 @@ export const products = {
   starters: [
     {
       title: "Harira",
-      price: 4.5,
+      price: 5,
       options: [],
       description: "Dadels en citroen",
     },
     {
       title: "Bissara",
-      price: 4.5,
+      price: 5,
       description: "gereserveerd met brood",
     },
     { title: "Loempia", price: 4 },
     { title: "Msemmen", price: 3, description: "Marokkaanse pancake" },
     {
       title: "Tortilla",
-      price: 5.0,
-      description: "spaanse tortilla met aardappelen en eieren",
+      price: 3.5,
+      description:
+        "spaanse tortilla met aardappelen en eieren, keuze uit half 3,50 of een heel stuk 5,50",
     },
     // { title: "Nacho's", price: 7.5 },
   ],
@@ -69,18 +70,18 @@ export const products = {
   sandwiches: [
     {
       title: "Kip (of hete kip)",
-      price: 7.5,
+      price: 8.5,
       options: [
         option("Heet kip"),
         choice("Frisdrank", discount(colddrinks, 2)),
         choice("Friet", discount([friet, huisfriet], 1)),
       ],
     },
-    { title: "Gegrilde kipfilet", price: 8 },
-    { title: "Kefta", price: 7.5, description: "kalfsgehakt" },
-    // { title: "Kip tenders (van de grill)", price: 7.5 },
-    { title: "Sossit / Merquez", price: 8 },
-    { title: "Garnalen", price: 8 },
+    { title: "Gegrilde kipfilet", price: 8.5 },
+    { title: "Kefta", price: 8.5, description: "kalfsgehakt" },
+    // { title: "Kip tenders (van de grill)", price: 8.5 },
+    { title: "Sossit / Merquez", price: 8.5 },
+    { title: "Garnalen", price: 8.5 },
   ],
   burgers: [
     {
@@ -152,13 +153,12 @@ export const products = {
       title: "Tajine kip",
       price: 13.5,
       description:
-        "Half kip of twee kippendijen met gekookt ei olijven en geroosterde amandelen",
+        "Half kip gekookt ei olijven en geroosterde amandelen en friet",
     },
     {
       title: "Tajine Vlees",
       price: 14.5,
-      description:
-        "Malse kalfsvlees met barqooq (pruimen) of groente (wordels en groene erwten)",
+      description: "Malse kalfsvlees met barqooq (pruimen) en friet",
     },
     {
       title: "Tajine Pilpil",
