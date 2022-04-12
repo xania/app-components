@@ -1,12 +1,13 @@
-import { jsx } from "@xania/view";
+import { jsx, useState } from "@xania/view";
 import { Product, products } from "./menu-data";
 import "@material/list/mdc-list.scss";
 import styles from "./style.module.scss";
 
 export function MenuCard() {
+  const state = useState(0);
   const events = {
-    onSelect(p) {
-      console.log(p);
+    onSelect(p: Product) {
+      state.update((x) => x + p.price);
     },
   };
   return (
