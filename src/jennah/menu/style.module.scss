@@ -93,6 +93,18 @@
     "b c"
     "b c" / 1fr 1fr;
 
+  &--kinderen {
+    background: url(./ramadan-0fd15db2b9bb812a21cd33ae082ec693.jpg);
+    background-size: cover;
+    height: 100%;
+    box-sizing: border-box;
+
+    .section {
+      margin-top: 820px;
+      background-color: #ffffffda;
+    }
+  }
+
   .section {
     padding: 0 20px;
 

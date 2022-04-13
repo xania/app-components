@@ -40,12 +40,12 @@ export const products = {
     },
     { title: "Loempia", price: 4 },
     { title: "Msemmen", price: 3, description: "Marokkaanse pancake" },
-    {
-      title: "Tortilla",
-      price: 3.5,
-      description:
-        "spaanse tortilla met aardappelen en eieren, keuze uit half 3,50 of een heel stuk 5,50",
-    },
+    // {
+    //   title: "Tortilla",
+    //   price: 3.5,
+    //   description:
+    //     "spaanse tortilla met aardappelen en eieren, keuze uit half 3,50 of een heel stuk 5,50",
+    // },
     // { title: "Nacho's", price: 7.5 },
   ],
   paninis: [
@@ -82,6 +82,7 @@ export const products = {
     // { title: "Kip tenders (van de grill)", price: 8.5 },
     { title: "Sossit / Merquez", price: 8.5 },
     { title: "Garnalen", price: 8.5 },
+    { title: "Shwa", price: 9 },
   ],
   burgers: [
     {
@@ -224,7 +225,7 @@ function choice(title: string, products: Product[]): ProductChoice {
 
 export interface Product {
   title: string;
-  price: number;
+  price?: number;
   description?: string;
   options?: ProductAddendum[];
 }
