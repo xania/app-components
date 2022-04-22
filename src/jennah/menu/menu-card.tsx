@@ -1,8 +1,8 @@
-import { jsx, useState } from "@xania/view";
+import { jsx, State, useContext, useState } from "@xania/view";
 import { Product, products } from "./menu-data";
 import "@material/list/mdc-list.scss";
+import "@material/elevation/styles.scss";
 import styles from "./style.module.scss";
-import kleurplaat from "./ramadan-0fd15db2b9bb812a21cd33ae082ec693.jpg";
 
 interface TopBarOptions {
   subtitle?: string;
@@ -22,12 +22,23 @@ function TopBar(props: TopBarOptions) {
   );
 }
 
+function Order() {
+  const $ = useContext<Product>();
+  return (
+    <div>
+      <span style="display: inline-block; margin: auto;">{$("title")}</span>
+      <span>{$("price")}</span>
+    </div>
+  );
+}
+
 export function MenuCard() {
-  const state = useState(0);
+  const state = useState<Product[]>([]);
   const events = {
     onSelect(p: Product) {
-      state.update((x) => x + p.price);
+      state.update((products) => [...products, p]);
     },
+    orders: useState<Order[]>([]),
   };
   return (
     <>
@@ -75,6 +86,7 @@ export function MenuCard() {
       </div>
       <div style="page-break-inside:avoid;page-break-after:always"></div>
 
+      <TopBar subtitle="Hoofgerechten" />
       <div class={styles["menu-card"]}>
         <Section title="Broodjes">
           <ProductList products={products.sandwiches} {...events} />
@@ -96,8 +108,8 @@ export function MenuCard() {
         <Section title="Dranken">
           <ProductList
             products={[
-              { title: "Frisdrank", price: 2.5 },
-              { title: "Redbull", price: 3 },
+              { id: "fris", title: "Frisdrank", price: 2.5 },
+              { id: "redbull", title: "Redbull", price: 3 },
             ]}
             {...events}
           />
@@ -126,64 +138,30 @@ export function MenuCard() {
       <img style="width: 100%; margin: auto 0 0 0" src={burgerSrc} />
     </div> */}
       <div style="page-break-inside:avoid;page-break-after:always"></div>
-      <TopBar subtitle={"Ramadan iftar menu"} />
-      <div class={styles["menu-card"]}>
-        <div>
-          <Section title="Iftar starter 12.5">
-            <ProductList
-              products={[
-                { title: "Loempia" },
-                { title: "Briwat" },
-                { title: "Chebakiya" },
-                { title: "Harira" },
-                { title: "Spa water" },
-                { title: "Gekookt ei" },
-                { title: "Avocado smoothie" },
-              ]}
-              {...events}
-            />
-          </Section>
-        </div>
-        <div>
-          <Section title="Iftar hoofdgerecht">
-            <ProductList
-              products={[
-                { title: "Kip filet van de grill", price: 25 },
-                { title: "Mix grill", price: 27 },
-                { title: "Tajines", price: 25 },
-                { title: "Broodjes", price: 20 },
-              ]}
-              {...events}
-            />
-            <hr />
-            <p class={styles.section__footer}>
-              Al onze iftar hoofdgerechten zijn inclusief starter menu
-            </p>
-          </Section>
-        </div>
-      </div>
-
-      <div style="page-break-inside:avoid;page-break-after:always"></div>
       <div class={[styles["menu-card"], styles["menu-card--kinderen"]]}>
         <Section title="Kindermenu">
           <ProductList
             products={[
               {
+                id: "nuggetsmenu",
                 title: "Kip nuggets menu",
                 price: 7,
                 description: "6 kip nuggets met friet",
               },
               {
+                id: "kaassouflemenu",
                 title: "Kaassoufle menu",
                 price: 7,
                 description: "1 kipfilet van de grill met friet",
               },
               {
+                id: "kinder.sate",
                 title: "Kinder kip sate menu",
                 price: 7,
                 description: "2 kip spiesjes met friet",
               },
               {
+                id: "kinder.kipfilet",
                 title: "Kinder kipfilet menu",
                 price: 7,
                 description: "1 kipfilet van de grill met friet",
@@ -196,26 +174,32 @@ export function MenuCard() {
           <ProductList
             products={[
               {
+                id: "fristi",
                 title: "Fristi",
                 price: 1.5,
               },
               {
+                id: "icetgreen",
                 title: "Ice thee green",
                 price: 1.5,
               },
               {
+                id: "icetpeach",
                 title: "Ice thee peach",
                 price: 1.5,
               },
               {
+                id: "icetspark",
                 title: "Ice thee sparkling",
                 price: 1.5,
               },
               {
+                id: "chocomel",
                 title: "Chocomel",
                 price: 1.5,
               },
               {
+                id: "warmchoco",
                 title: "Warme chocomel",
                 price: 1.5,
               },
@@ -229,6 +213,11 @@ export function MenuCard() {
       </div> */}
     </>
   );
+}
+
+interface Order {
+  price: number;
+  productId: string;
 }
 
 interface SectionProps {
@@ -250,51 +239,80 @@ interface ProductListOptions {
 
 interface ProductEvents {
   onSelect(product: Product): void;
+  orders: State<Order[]>;
 }
 
 function ProductList(options: ProductListOptions & ProductEvents) {
-  const { products } = options;
+  const { products, orders } = options;
 
-  return (
-    <ul class={styles["product-list"]}>
-      {products.map((product) =>
-        product.description ? (
-          <a
-            class={["mdc-list-item", "router-link", "mdc-list--two-line"]}
-            tabIndex={0}
-            click={() => options.onSelect(product)}
-            // href={"/jennah/" + productPath(product).join("/")}
+  function ProductItem(product: Product) {
+    const count = orders.map(
+      (s) => s.filter((e) => e.productId === product.id).length
+    );
+
+    function onClick() {
+      orders.update((list) => [
+        ...list,
+        {
+          price: product.price || 0,
+          productId: product.id,
+        },
+      ]);
+    }
+    return product.description ? (
+      <a
+        class={["mdc-list-item", "router-link", "mdc-list--two-line"]}
+        tabIndex={0}
+        click={product.price ? onClick : undefined}
+        // href={"/jennah/" + productPath(product).join("/")}
+      >
+        <span class="mdc-list-item__ripple"></span>
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">
+            {product.title} {product.price}{" "}
+            <div
+              class={[
+                styles.counter,
+                "mdc-elevation--z2",
+                styles["print-hidden"],
+              ]}
+            >
+              {count}
+            </div>
+          </span>
+          <span
+            class={[
+              "mdc-list-item__secondary-text",
+              styles.product__description,
+            ]}
           >
-            <span class="mdc-list-item__ripple"></span>
-            <span class="mdc-list-item__text">
-              <span class="mdc-list-item__primary-text">
-                {product.title} {product.price}
-              </span>
-              <span
-                class={[
-                  "mdc-list-item__secondary-text",
-                  styles.product__description,
-                ]}
-              >
-                {product.description}
-              </span>
-            </span>
-          </a>
-        ) : (
-          <a
-            class="mdc-list-item router-link mdc-list--one-line"
-            tabIndex={0}
-            click={() => options.onSelect(product)}
-          >
-            <span class="mdc-list-item__ripple"></span>
-            <span class="mdc-list-item__text">
-              <span class="mdc-list-item__primary-text">
-                {product.title} {product.price}
-              </span>
-            </span>
-          </a>
-        )
-      )}
-    </ul>
-  );
+            {product.description}
+          </span>
+        </span>
+      </a>
+    ) : (
+      <a
+        class="mdc-list-item router-link mdc-list--one-line"
+        tabIndex={0}
+        click={product.price ? onClick : undefined}
+      >
+        <span class="mdc-list-item__ripple"></span>
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">
+            {product.title} {product.price}{" "}
+            <div
+              class={[
+                styles.counter,
+                "mdc-elevation--z3",
+                styles["print-hidden"],
+              ]}
+            >
+              {count}
+            </div>
+          </span>
+        </span>
+      </a>
+    );
+  }
+  return <ul class={styles["product-list"]}>{products.map(ProductItem)}</ul>;
 }

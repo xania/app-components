@@ -1,0 +1,98 @@
+@import "../style.module.scss";
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+html {
+  background-color: white;
+}
+
+body {
+  text-align: left;
+  margin: auto;
+  width: 800px;
+  background-image: url(./bottombar.webp);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 800px;
+  background-color: #000;
+  position: relative;
+  display: block;
+
+  -moz-box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.733);
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 5px 5px 25px 10px rgba(0, 0, 0, 0.568);
+}
+
+.hart {
+  background-image: url(../hart.svg);
+  height: 240px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-size: contain;
+  margin-left: -60px;
+  margin-top: -10px;
+}
+
+.topbar {
+  background-color: black;
+  background-image: url(./topbar2.webp);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  border-bottom: 10px solid #db7814;
+
+  color: white;
+  padding: 100px;
+  margin: 0;
+
+  h1 {
+    color: white;
+  }
+
+  .subtitle {
+    color: #ffddbc;
+  }
+}
+
+.menu-card {
+  justify-content: center;
+  background-image: url(./kisspng-ramadan-quran-light-islam-muslim-frame-5b4a0cac448c54.6432972915315795642808.png);
+  background-repeat: no-repeat;
+  background-position: right -20px;
+  height: 600px;
+  padding: 0;
+  margin: 0;
+
+  .section {
+    width: 500px;
+    margin: 40px auto;
+    background-color: rgba(0, 0, 0, 0.536);
+    padding: 40px;
+    border: 10px solid rgba(150, 150, 150, 0.212);
+
+    -moz-box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.733);
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 5px 5px 25px 10px rgba(0, 0, 0, 0.568);
+
+    a span {
+      color: white;
+    }
+    a span.product__description {
+      color: #f5f5f5;
+    }
+
+    h3 {
+      color: #db7814;
+    }
+  }
+}

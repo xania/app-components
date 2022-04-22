@@ -48,6 +48,10 @@ const router = createWebRouter([
   ["receipts", Receipts],
   ["jennah/menu", import("./jennah/menu/menu-card").then((e) => e.MenuCard)],
   [
+    "jennah/ramadan-menu",
+    import("./jennah/menu/ramadan").then((e) => e.RamadanMenuCard),
+  ],
+  [
     "jennah/instagram",
     import("./jennah/instagram").then((e) => e.InstagramComponent),
   ],

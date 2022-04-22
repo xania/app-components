@@ -93,16 +93,23 @@
     "b c"
     "b c" / 1fr 1fr;
 
-  &--kinderen {
-    background: url(./ramadan-0fd15db2b9bb812a21cd33ae082ec693.jpg);
-    background-size: cover;
-    height: 100%;
-    box-sizing: border-box;
-
-    .section {
-      margin-top: 820px;
-      background-color: #ffffffda;
-    }
+  .counter {
+    color: green;
+    display: inline-flex;
+    // position: absolute;
+    // right: 5px;
+    border-radius: 30px;
+    width: 20px;
+    justify-content: center;
+    background-color: #0d6ab6;
+    color: white;
+    // color: #0d6ab6;
+    z-index: 0;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 20px;
+    margin: 0 10px;
+    transform: translateY(-2px);
   }
 
   .section {
@@ -121,6 +128,15 @@
       font-size: 24px;
       padding: 0;
       margin: 10px 0 0 0;
+    }
+
+    h3 {
+      font-family: "courgette";
+      color: gray;
+      display: inline-flex;
+      font-style: italic;
+      width: 80px;
+      margin: 0;
     }
 
     &__footer {
@@ -148,9 +164,43 @@
       }
     }
   }
+
+  &--one-column {
+    grid-template:
+      "a"
+      "a" / 1fr;
+  }
 }
+
+@media screen and (max-width: 480px) {
+  .menu-card {
+    grid-template:
+      "a"
+      "a" / 1fr;
+
+    .header-image {
+      display: block;
+    }
+  }
+}
+
 @media print {
+  .print-hidden {
+    display: none;
+  }
   .menu-card {
     padding: 10px 30px 0 0;
+
+    &--kinderen {
+      background: url(./ramadan-0fd15db2b9bb812a21cd33ae082ec693.jpg);
+      background-size: cover;
+      height: 100%;
+      box-sizing: border-box;
+
+      .section {
+        margin-top: 820px;
+        background-color: #ffffffda;
+      }
+    }
   }
 }
