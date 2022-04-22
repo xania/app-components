@@ -79,7 +79,7 @@ export function RamadanMenuCard() {
                   ),
                   description:
                     "Brochette, kotelette, Merquez, Kip en Gehakt salade met keuze uit friet of rijst inclusief standaard iftar menu",
-                  price: 27,
+                  price: 29,
                 },
                 {
                   id: "iftar.tajine.kip",
@@ -101,7 +101,7 @@ export function RamadanMenuCard() {
                   ),
                   description:
                     "Tajine vlees met barqooq, ei, brood en friet inclusief standaard iftar menu",
-                  price: 25,
+                  price: 26,
                 },
                 {
                   id: "iftar.tajine.kefta",
@@ -112,7 +112,7 @@ export function RamadanMenuCard() {
                   ),
                   description:
                     "Tajine kefta met tomaten saus, ei en brood inclusief standaard iftar menu",
-                  price: 25,
+                  price: 23.5,
                 },
                 {
                   id: "iftar.brgr",
