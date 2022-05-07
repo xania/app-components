@@ -95,7 +95,11 @@
 }
 
 .menu-card {
-  padding: 10px 10px 0 0;
+  div {
+    box-sizing: border-box;
+  }
+  box-sizing: border-box;
+  padding: 10px;
   display: grid;
   grid-template:
     "b c"
@@ -121,6 +125,7 @@
   }
 
   .section {
+    box-sizing: border-box;
     padding: 0 20px;
 
     hr {
@@ -223,6 +228,8 @@
   }
 
   .menu-card {
+    width: 100%;
+
     grid-template:
       "b"
       "b" / 1fr;
@@ -230,7 +237,8 @@
     .section {
       border: 10px solid rgba(150, 150, 150, 0.212);
       padding: 0 20px;
-      margin: 40px;
+      width: 100%;
+      margin: 10px 0;
     }
   }
 }
