@@ -220,7 +220,15 @@
   }
 }
 
+.mobile-only {
+  display: none;
+}
+
 @media (max-width: 590px) {
+  .mobile-only {
+    display: inherit;
+  }
+
   .topbar {
     h1 {
       font-size: 70px;
@@ -235,10 +243,9 @@
       "b" / 1fr;
 
     .section {
-      border: 10px solid rgba(150, 150, 150, 0.212);
-      padding: 0 20px;
+      padding: 0;
       width: 100%;
-      margin: 10px 0;
+      margin: 20px 0;
     }
   }
 }

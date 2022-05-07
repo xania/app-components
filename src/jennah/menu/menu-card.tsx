@@ -3,6 +3,7 @@ import { Product, products } from "./menu-data";
 import "@material/list/mdc-list.scss";
 import "@material/elevation/styles.scss";
 import styles from "./style.module.scss";
+import tajineImgs from "./section/tajine.png";
 
 interface TopBarOptions {
   subtitle?: string;
@@ -19,6 +20,20 @@ function TopBar(props: TopBarOptions) {
         )}
       </h1>
     </div>
+  );
+}
+
+interface SectionImgProps {
+  src: string;
+}
+
+function SectionImg(props: SectionImgProps) {
+  return (
+    <img
+      class={styles["mobile-only"]}
+      src={props.src}
+      style="width: 100%;"
+    ></img>
   );
 }
 
@@ -49,6 +64,7 @@ export function MenuCard() {
             <ProductList products={products.starters} {...events} />
           </Section>
           <Section title="Tajine">
+            <SectionImg src={tajineImgs} />
             <ProductList products={products.tajines} {...events} />
             <hr />
             <p class={styles.section__footer}>
