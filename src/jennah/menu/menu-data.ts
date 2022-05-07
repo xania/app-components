@@ -235,7 +235,12 @@ export const products = {
     { id: "schtlkipfilet", title: "Kip Filet", price: 13.5 },
     { id: "schtlspies", title: "Kalfs Spies / Brochette", price: 15.5 },
     { id: "schtlsate", title: "Kip Sate", price: 13.5 },
-    { id: "schtlmixgrl", title: "Mix Grill", price: 17.5 },
+    {
+      id: "schtlmixgrl",
+      title: "Mix Grill",
+      price: 17.5,
+      description: "Met lams kotelet, merquez, schwa, kipsate en kalfsgehakt",
+    },
     { id: "schtllamskot", title: "Lams Koteletten Schotel ", price: 16.5 },
     { id: "schtlkefta", title: "Kefta Schotel", price: 13 },
     { id: "schtlzalm", title: "Zalm Schotel", price: 15.5 },

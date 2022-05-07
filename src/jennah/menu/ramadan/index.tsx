@@ -2,7 +2,8 @@ import { jsx, State, useContext, useState } from "@xania/view";
 import { Product } from "../menu-data";
 import "@material/list/mdc-list.scss";
 import "@material/elevation/styles.scss";
-import styles from "./style.module.scss";
+// import styles from "./style.module.scss";
+const styles: any = {};
 
 interface TopBarOptions {
   subtitle?: string;

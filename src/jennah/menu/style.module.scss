@@ -38,6 +38,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Hubballi&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Courgette&family=Pacifico&display=swap");
 
+// body {
+//   padding: 0;
+//   margin: auto;
+//   box-sizing: border-box;
+//   display: table;
+//   height: 100%;
+// }
+
 .hart {
   background-image: url(./hart.svg);
   height: 240px;
@@ -189,18 +197,40 @@
     display: none;
   }
   .menu-card {
-    padding: 10px 30px 0 0;
+    padding: 10px 10px 0 0;
 
     &--kinderen {
-      background: url(./ramadan-0fd15db2b9bb812a21cd33ae082ec693.jpg);
-      background-size: cover;
-      height: 100%;
+      background: url(./8fd25c1ee84e37e47ee5022ccdf29188.jpg);
+      background-repeat: no-repeat;
+      // background-size: 75%;
+      background-position: center;
+      height: 50%;
       box-sizing: border-box;
 
       .section {
-        margin-top: 820px;
+        margin-top: 620px;
         background-color: #ffffffda;
       }
+    }
+  }
+}
+
+@media (max-width: 590px) {
+  .topbar {
+    h1 {
+      font-size: 70px;
+    }
+  }
+
+  .menu-card {
+    grid-template:
+      "b"
+      "b" / 1fr;
+
+    .section {
+      border: 10px solid rgba(150, 150, 150, 0.212);
+      padding: 0 20px;
+      margin: 40px;
     }
   }
 }

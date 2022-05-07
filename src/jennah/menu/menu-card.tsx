@@ -48,9 +48,6 @@ export function MenuCard() {
           <Section title="Starters">
             <ProductList products={products.starters} {...events} />
           </Section>
-          <Section title="Salades">
-            <ProductList products={products.salads} {...events} />
-          </Section>
           <Section title="Tajine">
             <ProductList products={products.tajines} {...events} />
             <hr />
@@ -58,21 +55,21 @@ export function MenuCard() {
               Tajine worden geserveerd met bruin of wit brood
             </p>
           </Section>
-          {/* <Section title="Couscous">
+          <Section title="Couscous">
             <ProductList products={[...products.couscous]} {...events} />
             <hr />
             <p class={styles.section__footer}>
               Traditioneel bereid couscous elke vrijdag en weekend
             </p>
-          </Section> */}
+          </Section>
         </div>
         <div>
           <Section title="Grill">
             <ProductList products={products.grill} {...events} />
             <hr />
             <p class={styles.section__footer}>
-              Alle schotels worden geserveerd met salade, huis saus en keuze uit
-              rijst of friet
+              Alle schotels worden geserveerd met salade, keuze uit rijst of
+              friet, huisgemaakte saus en optie voor gegrilde groente
             </p>
           </Section>
           <Section title="Burgers">
@@ -88,16 +85,23 @@ export function MenuCard() {
 
       <TopBar subtitle="Hoofgerechten" />
       <div class={styles["menu-card"]}>
-        <Section title="Broodjes">
-          <ProductList products={products.sandwiches} {...events} />
-          <hr />
-          <p class={styles.section__footer}>
-            Al onze broodjes worden geserveerd met salade, saus en friet
-          </p>
-        </Section>
-        <Section title="Pasta">
-          <ProductList products={products.pasta} {...events} />
-        </Section>
+        <div>
+          <Section title="Salades">
+            <ProductList products={products.salads} {...events} />
+          </Section>
+          <Section title="Pasta">
+            <ProductList products={products.pasta} {...events} />
+          </Section>
+        </div>
+        <div>
+          <Section title="Broodjes">
+            <ProductList products={products.sandwiches} {...events} />
+            <hr />
+            <p class={styles.section__footer}>
+              Al onze broodjes worden geserveerd met salade, saus en friet
+            </p>
+          </Section>
+        </div>
       </div>
       <div style="page-break-inside:avoid;page-break-after:always"></div>
       <TopBar subtitle="Drankjes en Desserts" />
@@ -138,6 +142,7 @@ export function MenuCard() {
       <img style="width: 100%; margin: auto 0 0 0" src={burgerSrc} />
     </div> */}
       <div style="page-break-inside:avoid;page-break-after:always"></div>
+      <TopBar subtitle="Voor de kinderen" />
       <div class={[styles["menu-card"], styles["menu-card--kinderen"]]}>
         <Section title="Kindermenu">
           <ProductList
@@ -269,7 +274,7 @@ function ProductList(options: ProductListOptions & ProductEvents) {
         <span class="mdc-list-item__ripple"></span>
         <span class="mdc-list-item__text">
           <span class="mdc-list-item__primary-text">
-            {product.title} {product.price}{" "}
+            {product.title} {product.price}
             <div
               class={[
                 styles.counter,
@@ -299,7 +304,7 @@ function ProductList(options: ProductListOptions & ProductEvents) {
         <span class="mdc-list-item__ripple"></span>
         <span class="mdc-list-item__text">
           <span class="mdc-list-item__primary-text">
-            {product.title} {product.price}{" "}
+            {product.title} {product.price}
             <div
               class={[
                 styles.counter,
