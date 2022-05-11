@@ -92,13 +92,7 @@ export const products = {
       title: "Classic Cheese Burger",
       price: 9,
       description: "180g kalfsgehakt, cheddar kaas en gekarameliseerde uien",
-      extra: ["extra kaas", "spiegel-ei", "champignon"],
-    },
-    {
-      id: "dblchizbrgr",
-      title: "Double Cheese Burger",
-      price: 12.5,
-      description: "300g kalfsgehakt, cheddar kaas en gekarameliseerde uien",
+      extra: ["cheddar", "spiegel-ei", "champignon"],
     },
     {
       id: "gchickenbrgr",
@@ -106,6 +100,12 @@ export const products = {
       price: 9.5,
       description: "met kipfilet van de grill",
       extra: ["cheddar"],
+    },
+    {
+      id: "dblchizbrgr",
+      title: "Double Cheese Burger",
+      price: 12.5,
+      description: "300g kalfsgehakt, cheddar kaas en gekarameliseerde uien",
     },
     // {
     //   id: "kipgehktbrgr",

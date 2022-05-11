@@ -364,9 +364,9 @@ function ProductList(options: ProductListOptions & ProductEvents) {
             {product.description}
             {product.extra && (
               <div>
-                extra:
+                <i>extra:</i>
                 {product.extra.map((e) => (
-                  <span style="border: 1px #EEE gray; padding: 0 10px;">
+                  <span style="border: 1px #EEE gray; padding: 0 4px;">
                     {e}
                   </span>
                 ))}
