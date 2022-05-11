@@ -92,7 +92,7 @@ export const products = {
       title: "Classic Cheese Burger",
       price: 9,
       description: "180g kalfsgehakt, cheddar kaas en gekarameliseerde uien",
-      extra: ["spiegel-ei", "champignon"],
+      extra: ["extra kaas", "spiegel-ei", "champignon"],
     },
     {
       id: "dblchizbrgr",
