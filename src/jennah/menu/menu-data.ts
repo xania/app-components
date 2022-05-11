@@ -34,51 +34,39 @@ export const products = {
       title: "Harira",
       price: 5,
       options: [],
-      description: "Dadels en citroen",
+      description: "Met dadels en citroen",
     },
     {
       id: "bissara",
       title: "Bissara",
       price: 5,
-      description: "gereserveerd met brood",
+      description: "Gereserveerd met brood",
     },
-    { id: "loempia", title: "Loempia", price: 4 },
     {
-      id: "msemmen",
-      title: "Msemmen",
-      price: 3,
-      description: "Marokkaanse pancake",
+      id: "briwat-pastilla",
+      title: "Briwat en pastilla",
+      price: 7.5,
+      description: "zoethartige huisgemaakte briwat en pastilla met kip",
+    },
+    {
+      id: "loempia",
+      title: "Loempia",
+      price: 4,
+      description: "Krapperige vietnameze kip loempia, twee stuks per portie",
     },
     // {
-    //   title: "Tortilla",
-    //   price: 3.5,
-    //   description:
-    //     "spaanse tortilla met aardappelen en eieren, keuze uit half 3,50 of een heel stuk 5,50",
+    //   id: "msemmen",
+    //   title: "Msemmen",
+    //   price: 3,
+    //   description: "Marokkaanse pancake",
     // },
+    {
+      id: "tortilla",
+      title: "Tortilla",
+      price: 3.5,
+      description: "spaanse tortilla met aardappelen en eieren",
+    },
     // { title: "Nacho's", price: 7.5 },
-  ],
-  paninis: [
-    {
-      id: "pankip",
-      title: "Kip",
-      price: 4.5,
-    },
-    {
-      id: "pantuna",
-      title: "Tuna",
-      price: 4.5,
-      options: [option("Olijven")],
-    },
-    {
-      id: "pangrllwst",
-      title: "Grillworst",
-      price: 5.5,
-    },
-    {
-      id: "pangarnl",
-      title: "Garnalen",
-      price: 6.5,
-    },
   ],
   sandwiches: [
     {
@@ -100,17 +88,11 @@ export const products = {
   ],
   burgers: [
     {
-      id: "jenbrgr",
-      title: "Jennah Burger",
-      price: 9.5,
-      description:
-        "kalfsgehakt, cheddar kaas, spiegel-ei, gekarameliseerde uien en augurken",
-    },
-    {
       id: "clasbrgr",
       title: "Classic Cheese Burger",
       price: 9,
       description: "180g kalfsgehakt, cheddar kaas en gekarameliseerde uien",
+      extra: ["spiegel-ei", "champignon"],
     },
     {
       id: "dblchizbrgr",
@@ -119,37 +101,38 @@ export const products = {
       description: "300g kalfsgehakt, cheddar kaas en gekarameliseerde uien",
     },
     {
-      id: "kipbrgr",
-      title: "Kipfilet Burger",
+      id: "gchickenbrgr",
+      title: "Grilled chicken Burger",
       price: 9.5,
       description: "met kipfilet van de grill",
+      extra: ["cheddar"],
     },
-    {
-      id: "kipgehktbrgr",
-      title: "Kipgehakt Burger",
-      price: 8.5,
-      description: "kipgehakt, cheddar kaas en gekarameliseerde uien",
-    },
+    // {
+    //   id: "kipgehktbrgr",
+    //   title: "Kipgehakt Burger",
+    //   price: 8.5,
+    //   description: "kipgehakt, cheddar kaas en gekarameliseerde uien",
+    // },
   ],
   salads: [
     {
-      id: "tunsalad",
-      title: "Tonijn Salade",
-      price: 7.5,
-    },
-    {
       id: "ceasarsalad",
       title: "Ceasar Salade",
-      price: 9,
+      price: 10,
       description: "met kip van de grill",
     },
     {
       id: "zalmsalad",
       title: "Zalm Salade",
-      price: 10,
+      price: 11,
       description: "met zalm van de grill",
     },
-    { id: "garnlsalad", title: "Garnalen Salade", price: 9 },
+    { id: "garnlsalad", title: "Garnalen Salade", price: 10 },
+    {
+      id: "tunsalad",
+      title: "Tonijn Salade",
+      price: 8,
+    },
   ],
   colddrinks,
   hotdrinks: [
@@ -239,13 +222,14 @@ export const products = {
       id: "schtlmixgrl",
       title: "Mix Grill",
       price: 17.5,
-      description: "Met lams kotelet, merquez, schwa, kipsate en kalfsgehakt",
+      description:
+        "Met lams kotelet, merquez, schwa, kip tenders en kipsate en kalfsgehakt",
     },
-    { id: "schtllamskot", title: "Lams Koteletten Schotel ", price: 16.5 },
+    // { id: "schtllamskot", title: "Lams Koteletten Schotel ", price: 16.5 },
     { id: "schtlkefta", title: "Kefta Schotel", price: 13 },
     { id: "schtlzalm", title: "Zalm Schotel", price: 15.5 },
     { id: "schtlgarnl", title: "Garnalen Schotel", price: 14 },
-    { id: "schtlmerqez", title: "Sausage / Merquez Schotel", price: 14 },
+    // { id: "schtlmerqez", title: "Sausage / Merquez Schotel", price: 14 },
   ],
   pasta: [
     { id: "pastakip", title: "Kip", price: 12.5 },
@@ -270,6 +254,7 @@ export interface Product {
   price?: number;
   description?: string;
   options?: ProductAddendum[];
+  extra?: string[];
 }
 
 type ProductAddendum = ProductOption | ProductChoice;

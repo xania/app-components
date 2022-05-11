@@ -63,6 +63,9 @@ export function MenuCard() {
           <Section title="Starters">
             <ProductList products={products.starters} {...events} />
           </Section>
+          <Section title="Salades">
+            <ProductList products={products.salads} {...events} />
+          </Section>
           <Section title="Tajine">
             <SectionImg src={tajineImgs} />
             <ProductList products={products.tajines} {...events} />
@@ -71,15 +74,11 @@ export function MenuCard() {
               Tajine worden geserveerd met bruin of wit brood
             </p>
           </Section>
-          <Section title="Couscous">
-            <ProductList products={[...products.couscous]} {...events} />
-            <hr />
-            <p class={styles.section__footer}>
-              Traditioneel bereid couscous elke vrijdag en weekend
-            </p>
-          </Section>
         </div>
         <div>
+          <Section title="Pasta">
+            <ProductList products={products.pasta} {...events} />
+          </Section>
           <Section title="Grill">
             <ProductList products={products.grill} {...events} />
             <hr />
@@ -98,23 +97,23 @@ export function MenuCard() {
         </div>
       </div>
       <div style="page-break-inside:avoid;page-break-after:always"></div>
-
       <TopBar subtitle="Hoofgerechten" />
       <div class={styles["menu-card"]}>
-        <div>
-          <Section title="Salades">
-            <ProductList products={products.salads} {...events} />
-          </Section>
-          <Section title="Pasta">
-            <ProductList products={products.pasta} {...events} />
-          </Section>
-        </div>
         <div>
           <Section title="Broodjes">
             <ProductList products={products.sandwiches} {...events} />
             <hr />
             <p class={styles.section__footer}>
               Al onze broodjes worden geserveerd met salade, saus en friet
+            </p>
+          </Section>
+        </div>
+        <div>
+          <Section title="Couscous">
+            <ProductList products={[...products.couscous]} {...events} />
+            <hr />
+            <p class={styles.section__footer}>
+              Traditioneel bereid couscous elke vrijdag en weekend
             </p>
           </Section>
         </div>
@@ -125,23 +124,78 @@ export function MenuCard() {
         {/* <Section title="Panini">
             <ProductList products={products.paninis} {...events} />
           </Section> */}
-        <Section title="Dranken">
-          <ProductList
-            products={[
-              { id: "fris", title: "Frisdrank", price: 2.5 },
-              { id: "redbull", title: "Redbull", price: 3 },
-            ]}
-            {...events}
-          />
-          <hr />
-          <ProductList products={products.hotdrinks} {...events} />
-        </Section>
-        <Section title="Smoothies">
-          <ProductList products={products.smoothies} {...events} />
-        </Section>
-        <Section title="Dessert">
-          <ProductList products={products.desserts} {...events} />
-        </Section>
+        <div>
+          <Section title="Frisdranken">
+            <ProductList
+              products={[
+                {
+                  id: "spa",
+                  title: "Spa water",
+                  price: 2.5,
+                  description: "blauw*, rood",
+                },
+                {
+                  id: "cola",
+                  title: "Cola",
+                  price: 2.5,
+                  description: "original, zero",
+                },
+                {
+                  id: "fanta",
+                  title: "Fanta",
+                  price: 2.5,
+                  description: "orange, cassis, exotic",
+                },
+                { id: "hawai", title: "Hawai", price: 2.5 },
+                { id: "poms", title: "Poms", price: 2.5 },
+                {
+                  id: "fernandes",
+                  title: "Fernandes",
+                  price: 2.5,
+                  description:
+                    "green punch, pineapple, cherry, red grape (blauw)",
+                },
+                { id: "aa", title: "AA", price: 2.5 },
+                { id: "sprite", title: "Sprite", price: 2.5 },
+                {
+                  id: "icet",
+                  title: "Ice thee",
+                  price: 2.5,
+                  description: "green*, peach*, sparkling",
+                },
+                { id: "gingerale", title: "Ginger Ale", price: 2.5 },
+                { id: "creamsoda", title: "Cream Soda", price: 2.5 },
+                { id: "tonic", title: "Indian Tonic", price: 2.5 },
+                { id: "appsap", title: "Applesap*", price: 2.5 },
+                {
+                  id: "oasis",
+                  title: "Oasis",
+                  price: 2.5,
+                  description: "tropical*, framboos",
+                },
+                {
+                  id: "redbull",
+                  title: "Redbull",
+                  price: 3,
+                },
+              ]}
+              {...events}
+            />
+            <hr />
+            <p class={styles.section__footer}>*) zonder prik</p>
+          </Section>
+        </div>
+        <div>
+          <Section title="Warme dranken">
+            <ProductList products={products.hotdrinks} {...events} />
+          </Section>
+          <Section title="Smoothies">
+            <ProductList products={products.smoothies} {...events} />
+          </Section>
+          <Section title="Dessert">
+            <ProductList products={products.desserts} {...events} />
+          </Section>
+        </div>
       </div>
       {/* <Paninis {...events} />
         <Burgers {...events} />
@@ -197,32 +251,32 @@ export function MenuCard() {
               {
                 id: "fristi",
                 title: "Fristi",
-                price: 1.5,
+                price: 2.5,
               },
               {
                 id: "icetgreen",
                 title: "Ice thee green",
-                price: 1.5,
+                price: 2.5,
               },
               {
                 id: "icetpeach",
                 title: "Ice thee peach",
-                price: 1.5,
+                price: 2.5,
               },
               {
                 id: "icetspark",
                 title: "Ice thee sparkling",
-                price: 1.5,
+                price: 2.5,
               },
               {
                 id: "chocomel",
                 title: "Chocomel",
-                price: 1.5,
+                price: 2.5,
               },
               {
                 id: "warmchoco",
                 title: "Warme chocomel",
-                price: 1.5,
+                price: 3.5,
               },
             ]}
             {...events}
@@ -308,6 +362,16 @@ function ProductList(options: ProductListOptions & ProductEvents) {
             ]}
           >
             {product.description}
+            {product.extra && (
+              <div>
+                extra:
+                {product.extra.map((e) => (
+                  <span style="border: 1px #EEE gray; padding: 0 10px;">
+                    {e}
+                  </span>
+                ))}
+              </div>
+            )}
           </span>
         </span>
       </a>
