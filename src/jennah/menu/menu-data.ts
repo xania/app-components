@@ -107,12 +107,12 @@ export const products = {
       price: 12.5,
       description: "300g kalfsgehakt, cheddar kaas en gekarameliseerde uien",
     },
-    // {
-    //   id: "kipgehktbrgr",
-    //   title: "Kipgehakt Burger",
-    //   price: 8.5,
-    //   description: "kipgehakt, cheddar kaas en gekarameliseerde uien",
-    // },
+    {
+      id: "kipgehktbrgr",
+      title: "Kipgehakt Burger",
+      price: 9,
+      description: "kipgehakt, cheddar kaas en gekarameliseerde uien",
+    },
   ],
   salads: [
     {
