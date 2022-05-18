@@ -228,7 +228,11 @@ function useCache<T>(resolve: ViewResolver<T>): ViewResolver<T> {
         ...resolution,
         resolve: useCache(resolution.resolve),
       });
+    } else if ('view' in resolution) {
+      return next = resolution;
     } else {
+      // not found
+      console.warn('path not found', path.join('/'))
       return resolution;
     }
   };

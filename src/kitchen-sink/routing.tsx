@@ -29,11 +29,11 @@ export function Routing() {
 
   class Outlet {
     render(target: RenderTarget) {
-      const div = document.createElement("div");
-      target.appendChild(div);
       const subscr = app.subscribe({
         next(view) {
-          div.textContent = view;
+          const div = document.createElement("div");
+          target.appendChild(div);
+              div.textContent = view;
         },
       });
 
