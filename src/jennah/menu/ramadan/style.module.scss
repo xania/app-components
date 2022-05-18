@@ -1,0 +1,114 @@
+@import "../style.module.scss";
+
+html {
+  background-color: white;
+}
+
+body {
+  text-align: left;
+  margin: auto;
+  max-width: 800px;
+  position: relative;
+  display: block;
+
+  background-color: #000;
+  clear: both;
+}
+
+.hart {
+  background-image: url(../hart.svg);
+  height: 240px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-size: contain;
+  margin-left: -60px;
+  margin-top: -10px;
+}
+
+.topbar {
+  background-color: black;
+  background-image: url(./topbar2.webp);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  border-bottom: 10px solid #db7814;
+
+  color: white;
+  padding: 40px 100px;
+  margin: 0;
+
+  h1 {
+    color: white;
+  }
+
+  .subtitle {
+    color: #ffddbc;
+    display: none;
+  }
+}
+
+.menu-card {
+  justify-content: center;
+  box-sizing: border-box;
+  grid-template:
+    "b"
+    "b" / 1fr;
+
+  .section {
+    background-color: black;
+    box-sizing: border-box;
+    padding: 20px 0;
+
+    a span {
+      color: white;
+    }
+    a span.product__description {
+      color: #e2e2e2;
+      font-style: italic;
+    }
+
+    h3 {
+      color: #db7814;
+    }
+  }
+}
+
+@media (min-width: 550px) {
+  body {
+    background-image: url(./bottombar.webp);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 800px;
+    box-shadow: 5px 5px 25px 10px rgba(0, 0, 0, 0.192);
+  }
+
+  .topbar {
+    padding: 100px;
+
+    h1 {
+      font-size: 70px;
+    }
+    .subtitle {
+      display: inline;
+    }
+  }
+
+  .menu-card {
+    background-image: url(./kisspng-ramadan-quran-light-islam-muslim-frame-5b4a0cac448c54.6432972915315795642808.png);
+    background-repeat: no-repeat;
+    background-position: right -20px;
+
+    .section {
+      border: 10px solid rgba(150, 150, 150, 0.212);
+      padding: 30px;
+      margin: 40px auto;
+      width: 600px;
+      background-color: rgba(0, 0, 0, 0.774);
+      box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.333);
+    }
+  }
+}

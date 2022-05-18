@@ -97,6 +97,7 @@ module.exports = (env, argv) => {
     output: {
       filename: "[name]-[chunkhash:8].js",
       path: fspath.resolve(__dirname, "dist"),
+      publicPath: "/",
     },
     plugins: [
       new MiniCssExtractPlugin({

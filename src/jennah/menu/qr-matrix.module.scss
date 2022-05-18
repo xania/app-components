@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Pacifico&display=swap");
+
+.qrcode {
+  text-align: center;
+  padding: 15px;
+  border: 8px #db7714;
+  border-style: solid;
+  border-radius: 20px;
+  box-sizing: border-box;
+  width: 5cm;
+  height: 5cm;
+  background-color: white;
+
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  h3 {
+    margin: 5px 0 0 0;
+    padding: 0;
+    line-height: 20px;
+    font-family: "Courgette";
+    font-size: 20px;
+
+    .hart {
+      position: absolute;
+      background-image: url(./hart.svg);
+      width: 26px;
+      height: 26px;
+      background-size: contain;
+      margin-left: -24px;
+      margin-top: -10px;
+    }
+  }
+  div {
+    display: block;
+    overflow: hidden;
+    canvas {
+      width: 105px;
+      height: 105px;
+      border-radius: 4px;
+      margin: 5px 10px 0 10px;
+    }
+  }
+
+  &__id {
+    color: rgb(235, 235, 235);
+    font-size: 12px;
+  }
+}
+
+.matrix {
+  // border-left: 0.01cm solid $cufline;
+  // border-top: 0.01cm solid $cufline;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+$cufline: rgba(172, 172, 172, 0.1);
+
+.cutblock {
+  border: 1px solid $cufline;
+  box-sizing: border-box;
+  width: 5.6cm;
+  height: 5.6cm;
+  text-align: center;
+  position: relative;
+}

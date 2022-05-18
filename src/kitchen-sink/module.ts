@@ -1,8 +1,13 @@
-import { route } from "./router";
+import { anyPath } from "./router";
+import { RouteContext, RouteInput, ViewComponent } from "./router/types";
 
-export class MyModule {
+export class MyModule implements ViewComponent<any> {
   render() {
     return "module route";
   }
-  routes = [route(["child"], "module child route")];
+
+  routes: RouteInput<any>[] = [
+    { path: "child", view: "module child route" },
+    [anyPath, (context: RouteContext) => context.path.join(",")],
+  ];
 }

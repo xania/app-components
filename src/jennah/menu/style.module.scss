@@ -1,0 +1,251 @@
+/* latin-ext */
+@font-face {
+  font-family: "Audiowide";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/audiowide/v14/l7gdbjpo0cum0ckerWCdmA_OIxo.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: "Audiowide";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/audiowide/v14/l7gdbjpo0cum0ckerWCdlg_O.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* latin */
+@font-face {
+  font-family: "Sofia";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/sofia/v12/8QIHdirahM3j_su5uI0.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Felipa&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Imperial+Script&family=Neonderthaw&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Vujahday+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hubballi&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Pacifico&display=swap");
+
+// body {
+//   padding: 0;
+//   margin: auto;
+//   box-sizing: border-box;
+//   display: table;
+//   height: 100%;
+// }
+
+.hart {
+  background-image: url(./hart.svg);
+  height: 240px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-size: contain;
+  margin-left: -60px;
+  margin-top: -10px;
+}
+
+.topbar {
+  text-align: center;
+  padding: 20px 0 0 0;
+  margin-top: 20px;
+
+  h1 {
+    font-family: Courgette;
+    font-size: 70px;
+    font-style: italic;
+    margin: 0 auto auto auto;
+    padding: 0;
+    color: black;
+    font-weight: bold;
+  }
+
+  .halal {
+    background-image: url("./istockphoto-1248817543-612x612.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin-left: 20px;
+  }
+  .subtitle {
+    color: #db7814;
+    font-weight: bold;
+    font-size: 17px;
+    position: absolute;
+    margin-left: -140px;
+    margin-top: 75px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+.menu-card {
+  div {
+    box-sizing: border-box;
+  }
+  box-sizing: border-box;
+  padding: 10px;
+  display: grid;
+  grid-template:
+    "b c"
+    "b c" / 1fr 1fr;
+
+  .counter {
+    color: green;
+    display: inline-flex;
+    // position: absolute;
+    // right: 5px;
+    border-radius: 30px;
+    width: 20px;
+    justify-content: center;
+    background-color: #0d6ab6;
+    color: white;
+    // color: #0d6ab6;
+    z-index: 0;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 20px;
+    margin: 0 10px;
+    transform: translateY(-2px);
+  }
+
+  .section {
+    box-sizing: border-box;
+    padding: 0 20px;
+
+    hr {
+      border-color: #b6620d;
+    }
+
+    &__title {
+      color: white;
+      background-color: #b6620d;
+      text-align: center;
+      font-family: "Hubballi";
+      line-height: 30px;
+      font-size: 24px;
+      padding: 0;
+      margin: 10px 0 0 0;
+    }
+
+    h3 {
+      font-family: "courgette";
+      color: gray;
+      display: inline-flex;
+      font-style: italic;
+      width: 80px;
+      margin: 0;
+    }
+
+    &__footer {
+      font-style: italic;
+      padding: 0 20px;
+      margin: 0;
+      color: #b6620d;
+    }
+
+    .product-list {
+      color: cadetblue;
+      padding: 0;
+      margin: 0;
+      .product__description {
+        overflow: auto;
+        white-space: pre-wrap;
+        padding-bottom: 4px;
+        &::before {
+          height: 0;
+        }
+      }
+
+      & > * {
+        margin: 3px 0;
+      }
+    }
+  }
+
+  &--one-column {
+    grid-template:
+      "a"
+      "a" / 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .menu-card {
+    grid-template:
+      "a"
+      "a" / 1fr;
+
+    .header-image {
+      display: block;
+    }
+  }
+}
+
+@media print {
+  .print-hidden {
+    display: none;
+  }
+  .menu-card {
+    padding: 10px 10px 0 0;
+
+    &--kinderen {
+      background: url(./8fd25c1ee84e37e47ee5022ccdf29188.jpg);
+      background-repeat: no-repeat;
+      // background-size: 75%;
+      background-position: center;
+      height: 50%;
+      box-sizing: border-box;
+
+      .section {
+        margin-top: 620px;
+        background-color: #ffffffda;
+      }
+    }
+  }
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 590px) {
+  .mobile-only {
+    display: inherit;
+  }
+
+  .topbar {
+    h1 {
+      font-size: 70px;
+    }
+  }
+
+  .menu-card {
+    width: 100%;
+
+    grid-template:
+      "b"
+      "b" / 1fr;
+
+    .section {
+      padding: 0;
+      width: 100%;
+      margin: 20px 0;
+    }
+  }
+}

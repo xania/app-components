@@ -1,10 +1,9 @@
-import { RouteContext } from "@xania/router";
 import { createContainer, jsx, useContext } from "@xania/view";
 import styles from "./style.module.scss";
 
 export class Benchmark {
-  constructor(public ctx: RouteContext) {}
-  get view(): any {
+  constructor() {}
+  render(): any {
     const container = createContainer<Person>();
 
     let selected: Node = null;

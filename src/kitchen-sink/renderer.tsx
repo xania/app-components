@@ -1,7 +1,7 @@
 import { jsx, render, RenderTarget } from "@xania/view";
 
 export class RendererDemo {
-  get view() {
+  render() {
     return (
       <div style="padding: 10px;">
         <p>Make sure the elements appair in right order:</p>

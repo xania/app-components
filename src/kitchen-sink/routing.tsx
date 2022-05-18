@@ -1,5 +1,6 @@
-import { jsx, RenderTarget } from "@xania/view";
-import { createRouter, Route, route } from "./router";
+import { jsx } from "@xania/view";
+import { Outlet } from "./router/outlet";
+import { RouteContext, ViewComponent } from "./router/types";
 
 class MyComponent {
   render() {
@@ -11,53 +12,49 @@ function MyFunction() {
   return "fun route";
 }
 
-const routes: Route<string>[] = [
-  route<string>(["start"], "start route"),
-  route<string>(
-    ["module"],
-    import("./module").then((e) => e.MyModule)
-  ),
-  route<string>(["simple"], "route-a"),
-  route<string>(["fun"], MyFunction),
-  route<string>(["comp"], MyComponent),
-  route<string>(["promise"], Promise.resolve("promise route")),
-];
+export class Routing implements ViewComponent {
+  constructor(private context: RouteContext) {}
 
-export function Routing() {
-  const app = createRouter(routes);
-  app.nav(["start"]);
+  render() {
+    const { context } = this;
+    const router = context.childRouter([
+      { path: "start", view: "start route" },
+      { path: "module", view: import("./module").then((e) => e.MyModule) },
+      { path: "simple", view: "route a" },
+      { path: "fun", view: MyFunction },
+      { path: "comp", view: MyComponent },
+      { path: "promise", view: Promise.resolve("promise route") },
+      { path: "params/:id", view: (ctx) => `[ ${ctx.params.id} ]` },
+    ]);
 
-  class Outlet {
-    render(target: RenderTarget) {
-      const subscr = app.subscribe({
-        next(view) {
-          const div = document.createElement("div");
-          target.appendChild(div);
-              div.textContent = view;
-        },
-      });
+    const outlet = new Outlet<string>(router, (element, target) => {
+      const div = document.createElement("div");
+      div.textContent = element;
+      target.appendChild(div);
 
       return {
         dispose() {
-          subscr.unsubscribe();
+          div.remove();
         },
       };
-    }
-  }
+    });
 
-  return (
-    <div>
+    return (
       <div>
-        <button click={(_) => app.nav(["simple"])}>simple</button>
-        <button click={(_) => app.nav(["module"])}>module</button>
-        <button click={(_) => app.nav(["module", "child"])}>
-          module child
-        </button>
-        <button click={(_) => app.nav(["fun"])}>fun</button>
-        <button click={(_) => app.nav(["comp"])}>component</button>
-        <button click={(_) => app.nav(["promise"])}>promise</button>
+        <div>
+          <button click={(_) => router.next("simple")}>simple</button>
+          <button click={(_) => router.next("module")}>module</button>
+          <button click={(_) => router.next("module/child")}>
+            module child
+          </button>
+          <button click={(_) => router.next("fun")}>fun</button>
+          <button click={(_) => router.next("comp")}>component</button>
+          <button click={(_) => router.next("promise")}>promise</button>
+          <button click={(_) => router.next("params/123")}>params</button>
+          <button click={(_) => router.next([])}>empty</button>
+        </div>
+        {outlet}
       </div>
-      <Outlet />
-    </div>
-  );
+    );
+  }
 }
