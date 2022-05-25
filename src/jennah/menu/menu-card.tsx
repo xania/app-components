@@ -155,24 +155,14 @@ export function MenuCard() {
                   description:
                     "green punch, pineapple, cherry, red grape (blauw)",
                 },
-                { id: "aa", title: "AA", price: 2.5 },
-                { id: "sprite", title: "Sprite", price: 2.5 },
                 {
                   id: "icet",
                   title: "Ice thee",
                   price: 2.5,
-                  description: "green*, peach*, sparkling",
+                  description: "green*, peach*",
                 },
                 { id: "gingerale", title: "Ginger Ale", price: 2.5 },
                 { id: "creamsoda", title: "Cream Soda", price: 2.5 },
-                { id: "tonic", title: "Indian Tonic", price: 2.5 },
-                { id: "appsap", title: "Applesap*", price: 2.5 },
-                {
-                  id: "oasis",
-                  title: "Oasis",
-                  price: 2.5,
-                  description: "tropical*, framboos",
-                },
                 {
                   id: "redbull",
                   title: "Redbull",
@@ -261,11 +251,6 @@ export function MenuCard() {
               {
                 id: "icetpeach",
                 title: "Ice thee peach",
-                price: 2.5,
-              },
-              {
-                id: "icetspark",
-                title: "Ice thee sparkling",
                 price: 2.5,
               },
               {
