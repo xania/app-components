@@ -9,7 +9,7 @@ interface TopBarOptions {
   subtitle?: string;
 }
 
-function TopBar(props: TopBarOptions) {
+export function TopBar(props: TopBarOptions) {
   return (
     <div class={styles.topbar}>
       <h1>

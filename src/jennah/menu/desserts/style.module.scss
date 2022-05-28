@@ -1,0 +1,12 @@
+.dessert {
+  border: 10px solid rgb(240, 63, 160);
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+  display: flex;
+
+  img {
+    width: 400px;
+    clip-path: circle(190px at center);
+  }
+}

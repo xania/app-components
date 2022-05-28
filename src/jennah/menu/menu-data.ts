@@ -204,10 +204,34 @@ export const products = {
   ],
   desserts: [
     {
-      id: "chizcake",
-      title: "Cheese cake",
+      id: "mangocake",
+      title: "Mango Cheese cake",
+      price: 4.5,
+    },
+    {
+      id: "frambocake",
+      title: "Mango Cheese cake",
+      price: 4.5,
+    },
+    {
+      id: "chococake",
+      title: "Chocolade taart",
+      price: 4.5,
+    },
+    {
+      id: "oreochizcake",
+      title: "Oreo Cheese cake",
       price: 5.5,
-      description: "Informeer naar onze variaties",
+    },
+    {
+      id: "passiechizcake",
+      title: "Passie Cheese cake",
+      price: 5.5,
+    },
+    {
+      id: "snickchizcake",
+      title: "Snicker Cheese cake",
+      price: 5.5,
     },
     { id: "redvelvet", title: "Redvelvet", price: 5.5 },
     { id: "redvelvetorea", title: "Redvelvet Oreo", price: 6.5 },
