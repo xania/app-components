@@ -174,13 +174,13 @@ export function MenuCard() {
             <hr />
             <p class={styles.section__footer}>*) zonder prik</p>
           </Section>
+          <Section title="Smoothies">
+            <ProductList products={products.smoothies} {...events} />
+          </Section>
         </div>
         <div>
           <Section title="Warme dranken">
             <ProductList products={products.hotdrinks} {...events} />
-          </Section>
-          <Section title="Smoothies">
-            <ProductList products={products.smoothies} {...events} />
           </Section>
           <Section title="Dessert">
             <ProductList products={products.desserts} {...events} />
