@@ -210,7 +210,7 @@ export const products = {
     },
     {
       id: "frambocake",
-      title: "Mango Cheese cake",
+      title: "Framboos Cheese cake",
       price: 4.5,
     },
     {
