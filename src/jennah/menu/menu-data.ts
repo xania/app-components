@@ -256,11 +256,12 @@ export const products = {
     // { id: "schtlmerqez", title: "Sausage / Merquez Schotel", price: 14 },
   ],
   pasta: [
-    { id: "pastakip", title: "Kip", price: 12.5 },
-    { id: "pastagarnl", title: "Garnalen", price: 13 },
-    { id: "pastazalm", title: "Zalm of Zalm/Garnalen", price: 14 },
-    { id: "pastabolognese", title: "Bolognese", price: 12.5 },
+    { id: "pastakip", title: "Kip", price: 10 },
+    { id: "pastagarnl", title: "Garnalen", price: 10 },
+    { id: "pastazalm", title: "Zalm", price: 10 },
+    { id: "pastabolognese", title: "Bolognese", price: 10 },
     { id: "pastarabiatta", title: "Arabiatta", price: 10 },
+    { id: "pastafruit", title: "Fruit de mer", price: 10 },
   ],
 };
 
