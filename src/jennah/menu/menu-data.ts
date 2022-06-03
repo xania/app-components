@@ -218,24 +218,24 @@ export const products = {
       title: "Chocolade taart",
       price: 4.5,
     },
-    {
-      id: "oreochizcake",
-      title: "Oreo Cheese cake",
-      price: 5.5,
-    },
-    {
-      id: "passiechizcake",
-      title: "Passie Cheese cake",
-      price: 5.5,
-    },
-    {
-      id: "snickchizcake",
-      title: "Snicker Cheese cake",
-      price: 5.5,
-    },
+    // {
+    //   id: "oreochizcake",
+    //   title: "Oreo Cheese cake",
+    //   price: 5.5,
+    // },
+    // {
+    //   id: "passiechizcake",
+    //   title: "Passie Cheese cake",
+    //   price: 5.5,
+    // },
+    // {
+    //   id: "snickchizcake",
+    //   title: "Snicker Cheese cake",
+    //   price: 5.5,
+    // },
     { id: "redvelvet", title: "Redvelvet", price: 5.5 },
-    { id: "redvelvetorea", title: "Redvelvet Oreo", price: 6.5 },
-    { id: "brownsnik", title: "Brownie Snicker", price: 6.5 },
+    // { id: "redvelvetorea", title: "Redvelvet Oreo", price: 6.5 },
+    // { id: "brownsnik", title: "Brownie Snicker", price: 6.5 },
     { id: "wortltaart", title: "Worteltaart", price: 5.5 },
   ],
   grill: [
