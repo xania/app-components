@@ -63,7 +63,7 @@ export const products = {
     {
       id: "tortilla",
       title: "Tortilla",
-      price: 3.5,
+      price: 5,
       description: "spaanse tortilla met aardappelen en eieren",
     },
     // { title: "Nacho's", price: 7.5 },
