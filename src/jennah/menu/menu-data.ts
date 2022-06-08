@@ -32,14 +32,14 @@ export const products = {
     {
       id: "harira",
       title: "Harira",
-      price: 5,
+      price: 4.5,
       options: [],
       description: "Met dadels en citroen",
     },
     {
       id: "bissara",
       title: "Bissara",
-      price: 5,
+      price: 4.5,
       description: "Gereserveerd met brood",
     },
     {
@@ -63,7 +63,7 @@ export const products = {
     {
       id: "tortilla",
       title: "Tortilla",
-      price: 5,
+      price: 4.5,
       description: "spaanse tortilla met aardappelen en eieren",
     },
     // { title: "Nacho's", price: 7.5 },
